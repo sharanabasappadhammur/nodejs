@@ -1,6 +1,15 @@
 import axios from "axios";
 import tough from "tough-cookie"
 import fetch from "node-fetch";
+import express from "express"
+const app = express()
+import dotenv from 'dotenv'
+dotenv.config()
+import cors from 'cors'
+app.use(cors())
+
+app.use(express.json())
+
 
 const cookieJar = new tough.CookieJar();
 
@@ -53,12 +62,12 @@ const api = axios.create({
 });
 
 api.defaults.headers['User-Agent'] = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36';
-const authToken = '109m8RSzTw1h7Kyl02HxbjcVEcZWTRQJBbWFEQpOXYJ9tQk-GvRZeKXRGsBi_83x0GJSQr2-VNtjrbdcfJ1qfTQZO_5D_1tExSOkaRqvPIRes8JYiA5YZGeJJsIKyhMsKP_B5X1ykv4ArMBGiGrt0Tj_jpCBquOiK-KCY3OTvg7lbSyK6dH3Wgr5ItGrhTH5UgMfH0qJWm3H0ywwszlljWqpJlNwQAD30yN-iz8M4HPZt13U2quc_Guv11C1iETjuiTo9XkFq3c5grzegNe6zxuybnq7OMEFv9qEx7ts1i5LwXjJExYy8138zCqKx_0Q1zhYaY_zwNKax8oPjqRu4oa9klhsyaeSDBx8uUDgg9jRFbPu6fKGXA3GlYe4y_UR_WU4aBIcniyqWLWb_CW1J3JW54n7URgAPkhdqPRZ6WEgeXzoiGQNFfZuf_J6O_VuO0a5ITBgBZSeuy6LI5Pg4QiT3MzgmSLLvKpIAgeIB2fCEemTGP3UJ3F6Im0ReAXY0znKPPDIZw4abVWwpEQhqSd6OAGuxqv-aQ_XXcAZXlCWi44O_7L980uS25P4eM-6ZDfX_U-n2ECX-kpE5zBD_JPqxRvvovEw83M4Blq62hXRqfLdG98rbk4lSouEUAyrnVN9_nNXzUOtVKWyJ74GFQ';
+const authToken = 'yLcynWbLSIIX8SUAlvdcDxIPpLGDrs_Q3Bz2ZG47twomuhD5RYk4JB-P7YqGd_2WWtGVtAAxrbrcMSxTZNLKh_S3MIuJWw0X_HdW8KGbTBiBucewsWQgQ-qsR_xb3A8R-_vwN-JnMPguLt8RY3fCYagX3gT7WtKTeWc94lhzg_rwhb5bXRx3AC68b6bpNLEMEUgs9ii-FTI7T9kV9MW9bRKJwLW1WobV8az4fboUrzwNBxiAUXPXBzhLjUNj5KtJvhtQNeJbd11BG_pFVvqjT-dLbp9_GrETR1mzZzwYheLqi5rjzBujC8EcjCO04URL-eNxqCG31bPQWrRBck7VIiQ6RD5BoKyZF9PFLUQPeEAkla_AxKXXvGPjjqiG1jpHhU-zRTGv-2SGU9cbLMg1qKpz-dGfs3r_lrbrEILtKUTiN9rqRQ99lo1D0zkKq32DaGFVMilnaNhZfEXuzNnWvLGrwJ0WVzT2vZ7dPQezkDszloJNMtlIQ_896Wz9s_WzwlxikCze6-A1qGtm1AqBDLXp2xIMfg4DjjqlYjGv6clxnCjcvXY-YHDULfs27qTaYF2BkO29I9Kr7qOLWJEKX73smnFVrMoDNDZuBkDNdsWRUrCzenJVrsFgHaANedjBhcEIdphiWQfO203qjtlJIQ';
 api.defaults.headers.common['Authorization'] = `Bearer ${authToken}`;
 
 setInterval(()=>{
-    // getTincapheData()
-},2000)
+    getTincapheData()
+},10000)
 
 function getTincapheData(){
     api.post(endpoint)
@@ -75,6 +84,7 @@ function getTincapheData(){
         console.log('Response:', response.data.result);
         let newArray = response.data.result.map((ele, index) => {
             if (index >= 26 && index <= 30) {
+            // if (index >= 41 && index <= 42) {
                 const object = {
                     isHighlet: true,
                     id: 0,
@@ -111,6 +121,7 @@ function getTincapheData(){
                 ittirationForRobusta += 1
             }
             if (index >= 4 && index <= 7) {
+            // if (1==2) {
                 const object = {
                     isHighlet: true,
                     id: 0,
@@ -156,7 +167,7 @@ function getTincapheData(){
     });
 }
 
-let AuthToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjIxNDc0ODM2NDYiLCJuYmYiOjE2ODg3OTg0NDQsImV4cCI6MTY4OTQwMzI0NCwiaWF0IjoxNjg4Nzk4NDQ0fQ.UDopIDcJhKCZNh_-Vteu8pK2bHSOdB2LoSyjAM6NbWU"
+let AuthToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjIxNDc0ODM2NDYiLCJuYmYiOjE2ODg5NjMzMTQsImV4cCI6MTY4OTU2ODExNCwiaWF0IjoxNjg4OTYzMzE0fQ.D2pcLJUZg1-O4FlUazIlb0gqRUNGt18HY9_jGyJvU6g"
 function postDataToCoffeeWeb(robustaArray, arabicaArray) {
     let data = robustaArray.concat(arabicaArray);
     console.log("data",data)
@@ -183,3 +194,12 @@ function postDataToCoffeeWeb(robustaArray, arabicaArray) {
             console.error("error", error);
         });
 }
+
+app.listen(process.env.PORT, async()=>{
+    try{
+        console.log("connected to server")
+    }
+    catch(error){
+        console.log(error.message)
+    }
+})
