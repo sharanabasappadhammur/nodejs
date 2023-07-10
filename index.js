@@ -83,8 +83,8 @@ function getTincapheData(){
 
         console.log('Response:', response.data.result);
         let newArray = response.data.result.map((ele, index) => {
-            if (index >= 26 && index <= 30) {
-            // if (index >= 41 && index <= 42) {
+            // if (index >= 26 && index <= 30) {
+            if (index >= 41 && index <= 42) {
                 const object = {
                     isHighlet: true,
                     id: 0,
@@ -120,8 +120,8 @@ function getTincapheData(){
                 robustaArray.push(object)
                 ittirationForRobusta += 1
             }
-            if (index >= 4 && index <= 7) {
-            // if (1==2) {
+            // if (index >= 4 && index <= 7) {
+            if (1==2) {
                 const object = {
                     isHighlet: true,
                     id: 0,
