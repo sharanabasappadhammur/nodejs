@@ -168,10 +168,6 @@ function getTincapheData(){
         generateToken()
     });
 }
-<<<<<<< HEAD
-=======
-
->>>>>>> 76734b9427d982bd28485dfd78a6669669c985bf
 let localAuthToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjIxNDc0ODM2NDYiLCJuYmYiOjE2ODkwNjg2OTQsImV4cCI6MTY4OTY3MzQ5NCwiaWF0IjoxNjg5MDY4Njk0fQ.-yswIRta_dnjlG5UqeljMqHgkbKn23JjCW-mTSiJizw"
 function postDataToCoffeeWeb(robustaArray, arabicaArray) {
     let data = robustaArray.concat(arabicaArray);
