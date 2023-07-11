@@ -6,8 +6,8 @@
   "type": "module",
   "scripts": {
    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js",
-    "build": "ng build"
+    "start": "node .",
+    "build": "index.js build"
   },
   "author": "",
   "license": "ISC",
