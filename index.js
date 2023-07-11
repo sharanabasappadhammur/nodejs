@@ -64,8 +64,8 @@ const api = axios.create({
 let generatedToken;
 
 api.defaults.headers['User-Agent'] = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36';
-const authToken = 'yLcynWbLSIIX8SUAlvdcDxIPpLGDrs_Q3Bz2ZG47twomuhD5RYk4JB-P7YqGd_2WWtGVtAAxrbrcMSxTZNLKh_S3MIuJWw0X_HdW8KGbTBiBucewsWQgQ-qsR_xb3A8R-_vwN-JnMPguLt8RY3fCYagX3gT7WtKTeWc94lhzg_rwhb5bXRx3AC68b6bpNLEMEUgs9ii-FTI7T9kV9MW9bRKJwLW1WobV8az4fboUrzwNBxiAUXPXBzhLjUNj5KtJvhtQNeJbd11BG_pFVvqjT-dLbp9_GrETR1mzZzwYheLqi5rjzBujC8EcjCO04URL-eNxqCG31bPQWrRBck7VIiQ6RD5BoKyZF9PFLUQPeEAkla_AxKXXvGPjjqiG1jpHhU-zRTGv-2SGU9cbLMg1qKpz-dGfs3r_lrbrEILtKUTiN9rqRQ99lo1D0zkKq32DaGFVMilnaNhZfEXuzNnWvLGrwJ0WVzT2vZ7dPQezkDszloJNMtlIQ_896Wz9s_WzwlxikCze6-A1qGtm1AqBDLXp2xIMfg4DjjqlYjGv6clxnCjcvXY-YHDULfs27qTaYF2BkO29I9Kr7qOLWJEKX73smnFVrMoDNDZuBkDNdsWRUrCzenJVrsFgHaANedjBhcEIdphiWQfO203qjtlJIQ';
-api.defaults.headers.common['Authorization'] = `Bearer ${generatedToken}`;
+const authToken = 'ypblh8z-ejgFJ45pGqrlPyPWMcSeToZ5J6Deolg7EqXZdNtJMrXF55vLBHveiDmakNNP3TLoVY2-NDl64Efwet01zRqemYu4924EUPWTqtW1AbcwOCM10wKFI0kMjlEAY6lgvxYA4kSyi_ij6OieDwyA0mle9sadbWAgbbEi9YxdVHuGM0PKwtd5YCht6kMkY_Ndtlow7F0NL3-hMFWDHnP8j70F2spRbcR3o7tWtpkKsAszgy4DdDOVjApi-qses1HyuKvu_33xF6AhmXGegrUH0wP1297K3WmciT_dP_UY9AtJru_NW6Ox4aOo11zogKMY4yJadZVGWNmxboKgp4TujFTwoJBdPr11dIHxaICngJKzqNGDWh3uHVIjwoIlAxrgBjkgVALIhpq11QI1bcHFJRZvSRr1a__UOQ_6mCXI9DrHJeXNfD-4yD6S41XpiBmh0MYxFHEmjauB7UNkhCCqD2S4M2hFXPlP4l9raP9MDHh3PPnhAG9EDdx5dgvTmU5rOPb3liEPRMwxmu9GwxJwC2pIMf6-qrrlnCEjz0tOrbbe8ZqIL6RxLKjuhYNDFviRVCFqz0QekTo8EAmPGP8eRdQqDbM-2keRa-KAcHh9haCDFGWpqhf3_CjnQYp5ov81tWsMFG2VqK3AghWyaw';
+api.defaults.headers.common['Authorization'] = `Bearer ${authToken}`;
 
 setInterval(()=>{
     getTincapheData()
@@ -169,12 +169,14 @@ function getTincapheData(){
     });
 }
 
+let localAuthToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjIxNDc0ODM2NDYiLCJuYmYiOjE2ODkwNjg2OTQsImV4cCI6MTY4OTY3MzQ5NCwiaWF0IjoxNjg5MDY4Njk0fQ.-yswIRta_dnjlG5UqeljMqHgkbKn23JjCW-mTSiJizw"
 function postDataToCoffeeWeb(robustaArray, arabicaArray) {
     let data = robustaArray.concat(arabicaArray);
     console.log("data",data)
     fetch('https://coffeeweb.org/api/TincapheAuth/PostTincapheMarketData', {
         method: 'POST',
         headers: {
+            Authorization: `Bearer ${localAuthToken}`,
             accept: "application/json",
             "accept-language": "en_US",
             "content-type": "application/json",
