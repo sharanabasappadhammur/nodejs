@@ -61,13 +61,15 @@ const api = axios.create({
     jar: cookieJar,
 });
 
+let generatedToken;
+
 api.defaults.headers['User-Agent'] = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36';
 const authToken = 'yLcynWbLSIIX8SUAlvdcDxIPpLGDrs_Q3Bz2ZG47twomuhD5RYk4JB-P7YqGd_2WWtGVtAAxrbrcMSxTZNLKh_S3MIuJWw0X_HdW8KGbTBiBucewsWQgQ-qsR_xb3A8R-_vwN-JnMPguLt8RY3fCYagX3gT7WtKTeWc94lhzg_rwhb5bXRx3AC68b6bpNLEMEUgs9ii-FTI7T9kV9MW9bRKJwLW1WobV8az4fboUrzwNBxiAUXPXBzhLjUNj5KtJvhtQNeJbd11BG_pFVvqjT-dLbp9_GrETR1mzZzwYheLqi5rjzBujC8EcjCO04URL-eNxqCG31bPQWrRBck7VIiQ6RD5BoKyZF9PFLUQPeEAkla_AxKXXvGPjjqiG1jpHhU-zRTGv-2SGU9cbLMg1qKpz-dGfs3r_lrbrEILtKUTiN9rqRQ99lo1D0zkKq32DaGFVMilnaNhZfEXuzNnWvLGrwJ0WVzT2vZ7dPQezkDszloJNMtlIQ_896Wz9s_WzwlxikCze6-A1qGtm1AqBDLXp2xIMfg4DjjqlYjGv6clxnCjcvXY-YHDULfs27qTaYF2BkO29I9Kr7qOLWJEKX73smnFVrMoDNDZuBkDNdsWRUrCzenJVrsFgHaANedjBhcEIdphiWQfO203qjtlJIQ';
-api.defaults.headers.common['Authorization'] = `Bearer ${authToken}`;
+api.defaults.headers.common['Authorization'] = `Bearer ${generatedToken}`;
 
 setInterval(()=>{
     getTincapheData()
-},10000)
+},5000)
 
 function getTincapheData(){
     api.post(endpoint)
@@ -83,8 +85,8 @@ function getTincapheData(){
 
         console.log('Response:', response.data.result);
         let newArray = response.data.result.map((ele, index) => {
-            // if (index >= 26 && index <= 30) {
-            if (index >= 41 && index <= 42) {
+            if (index >= 26 && index <= 30) {
+            // if (index >= 41 && index <= 42) {
                 const object = {
                     isHighlet: true,
                     id: 0,
@@ -120,8 +122,8 @@ function getTincapheData(){
                 robustaArray.push(object)
                 ittirationForRobusta += 1
             }
-            // if (index >= 4 && index <= 7) {
-            if (1==2) {
+            if (index >= 4 && index <= 7) {
+            // if (1==2) {
                 const object = {
                     isHighlet: true,
                     id: 0,
@@ -167,14 +169,12 @@ function getTincapheData(){
     });
 }
 
-let AuthToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjIxNDc0ODM2NDYiLCJuYmYiOjE2ODg5NjMzMTQsImV4cCI6MTY4OTU2ODExNCwiaWF0IjoxNjg4OTYzMzE0fQ.D2pcLJUZg1-O4FlUazIlb0gqRUNGt18HY9_jGyJvU6g"
 function postDataToCoffeeWeb(robustaArray, arabicaArray) {
     let data = robustaArray.concat(arabicaArray);
     console.log("data",data)
     fetch('https://coffeeweb.org/api/TincapheAuth/PostTincapheMarketData', {
         method: 'POST',
         headers: {
-            Authorization: `Bearer ${AuthToken}`,
             accept: "application/json",
             "accept-language": "en_US",
             "content-type": "application/json",
@@ -189,6 +189,31 @@ function postDataToCoffeeWeb(robustaArray, arabicaArray) {
         })
         .then(result => {
             console.log(result);
+        })
+        .catch(error => {
+            console.error("error", error);
+        });
+}
+
+function generateToken() {
+    fetch('https://coffeeweb.org/api/TincapheAuth/GetTincapheToken', {
+        method: 'get',
+        headers: {
+            // Authorization: `Bearer ${token}`,
+            accept: "application/json",
+            "accept-language": "en_US",
+            "content-type": "application/json",
+        },
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Request failed with status ' + response.status);
+            }
+            return response.json();
+        })
+        .then(result => {
+            console.log(result.returnLst.token);
+            generatedToken = result.returnLst.token
         })
         .catch(error => {
             console.error("error", error);
