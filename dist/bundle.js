@@ -1,13 +1,21 @@
-import axios from "axios";
-import tough from "tough-cookie"
-import fetch from "node-fetch";
-import express, { response } from "express"
-const app = express()
-import dotenv from 'dotenv'
-dotenv.config()
-import cors from 'cors'
-app.use(cors())
+// import axios from "axios";
+// import tough from "tough-cookie"
+// import fetch from "node-fetch";
+// import express, { response } from "express"
+// import dotenv from 'dotenv'
+// import cors from 'cors'
 
+const axios = require("axios");
+const tough = require("tough-cookie");
+const fetch = require("node-fetch");
+const express = require("express");
+const dotenv = require('dotenv');
+const cors = require('cors');
+
+
+const app = express()
+dotenv.config()
+app.use(cors())
 app.use(express.json())
 
 
@@ -85,7 +93,7 @@ function getTincapheData() {
             let ittirationForRobusta = 0
             let ittirationForArabica = 0
             let ittirationForXE = 0
-            
+
             let newArray = response.data.result.map((ele, index) => {
                 if (index >= 26 && index <= 30) {
                     // if (index >= 41 && index <= 42) {
