@@ -226,7 +226,7 @@ function generateToken() {
 
 }
 
-app.listen(process.env.PORT, async () => {
+app.listen(8099, async () => {
     try {
         console.log("connected to server")
     }
