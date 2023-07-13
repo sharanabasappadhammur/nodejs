@@ -5,12 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-<<<<<<< HEAD
-    "test": "echo \"Error: no test specified\" && exit 1"
-=======
    "test": "echo \"Error: no test specified\" && exit 1"
-  
->>>>>>> 76734b9427d982bd28485dfd78a6669669c985bf
   },
   "author": "",
   "license": "ISC",
