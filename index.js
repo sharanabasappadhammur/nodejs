@@ -61,13 +61,12 @@ const api = axios.create({
     jar: cookieJar,
 });
 
+
 let generatedToken;
 
 setInterval(() => {
     getTincapheData()
 }, 5000);
-
-
 
 function getTincapheData() {
     let token2 = generatedToken
@@ -113,8 +112,8 @@ function getTincapheData() {
                         bsize: ele.vs[12],
                         ask: ele.vs[13],
                         asize: ele.vs[14],
-                        optionExpiry: "2023-07-08T06:41:51.810Z",
-                        firstNoticeDate: "2023-07-08T06:41:51.810Z",
+                        optionExpiry: optionExpiryForRobusta[ittirationForRobusta],
+                        firstNoticeDate: firstNoticeDateForRobusta[ittirationForRobusta],
                         highCurrency: 0,
                         lowCurrency: 0,
                         marketName: robustaNameList[ittirationForRobusta],
@@ -150,8 +149,8 @@ function getTincapheData() {
                         bsize: ele.vs[12],
                         ask: ele.vs[13],
                         asize: ele.vs[14],
-                        optionExpiry: "2023-07-08T06:41:51.810Z",
-                        firstNoticeDate: "2023-07-08T06:41:51.810Z",
+                        optionExpiry: optionExpiryForArabica[ittirationForArabica],
+                        firstNoticeDate: firstNoticeDateForArabica[ittirationForArabica],
                         highCurrency: 0,
                         lowCurrency: 0,
                         marketName: arabicaNameList[ittirationForArabica],
@@ -170,11 +169,11 @@ function getTincapheData() {
             generateToken()
         });
 }
-let localAuthToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjIxNDc0ODM2NDYiLCJuYmYiOjE2ODkyMjk5MjgsImV4cCI6MTY4OTgzNDcyOCwiaWF0IjoxNjg5MjI5OTI4fQ.E5nitnlmksaImws9lxXWioKiMLkrfv5hfEx4uy1grEI"
+let localAuthToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjIxNDc0ODM2NDYiLCJuYmYiOjE2ODkwNjg2OTQsImV4cCI6MTY4OTY3MzQ5NCwiaWF0IjoxNjg5MDY4Njk0fQ.-yswIRta_dnjlG5UqeljMqHgkbKn23JjCW-mTSiJizw"
 function postDataToCoffeeWeb(robustaArray, arabicaArray) {
     let data = robustaArray.concat(arabicaArray);
     console.log("data", data)
-    fetch('https://coffeeweb.org/api/TincapheAuth/PostTincapheMarketData', {
+    fetch('https://coffeeweb.org/api/TincapheAuth/InsertTincapheData', {
         method: 'POST',
         headers: {
             Authorization: `Bearer ${localAuthToken}`,
