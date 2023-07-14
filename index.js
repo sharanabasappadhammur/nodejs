@@ -226,11 +226,11 @@ function generateToken() {
 
 }
 
-// app.listen(process.env.PORT, async () => {
-//     try {
-//         console.log("connected to server")
-//     }
-//     catch (error) {
-//         console.log(error.message)
-//     }
-// })
+app.listen(process.env.PORT, async () => {
+    try {
+        console.log("connected to server")
+    }
+    catch (error) {
+        console.log(error.message)
+    }
+})
