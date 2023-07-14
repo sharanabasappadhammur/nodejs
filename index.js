@@ -11,6 +11,7 @@ app.use(cors())
 
 app.use(express.json())
 
+//To replicate Browser Cookie Action
 const cookieJar = new tough.CookieJar();
 
 let robustaNameList = [
@@ -69,6 +70,7 @@ setInterval(() => {
 
 
 
+//To post data to Local DataBase
 function getTincapheData() {
     let token2 = generatedToken
     api.defaults.headers['User-Agent'] = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36';
