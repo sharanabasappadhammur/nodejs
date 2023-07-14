@@ -174,7 +174,7 @@ let localAuthToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjIxNDc0ODM2N
 function postDataToCoffeeWeb(robustaArray, arabicaArray) {
     let data = robustaArray.concat(arabicaArray);
     console.log("data", data)
-    fetch('https://coffeeweb.org/api/TincapheAuth/InsertTincapheData', {
+    fetch('https://coffeeweb.org/api/TincapheAuth/PostTincapheMarketData', {
         method: 'POST',
         headers: {
             Authorization: `Bearer ${localAuthToken}`,
