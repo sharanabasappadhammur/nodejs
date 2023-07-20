@@ -66,9 +66,11 @@ let generatedToken;
 
 setInterval(() => {
     getTincapheData()
-}, 5000);
+}, 2000);
 
-
+let robustaGlobalArray = []
+let arabicaGlobalArray = []
+let xeGlobalArray = []
 
 //To post data to Local DataBase
 function getTincapheData() {
@@ -76,7 +78,7 @@ function getTincapheData() {
     api.defaults.headers['User-Agent'] = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36';
     const authToken = 'ypblh8z-ejgFJ45pGqrlPyPWMcSeToZ5J6Deolg7EqXZdNtJMrXF55vLBHveiDmakNNP3TLoVY2-NDl64Efwet01zRqemYu4924EUPWTqtW1AbcwOCM10wKFI0kMjlEAY6lgvxYA4kSyi_ij6OieDwyA0mle9sadbWAgbbEi9YxdVHuGM0PKwtd5YCht6kMkY_Ndtlow7F0NL3-hMFWDHnP8j70F2spRbcR3o7tWtpkKsAszgy4DdDOVjApi-qses1HyuKvu_33xF6AhmXGegrUH0wP1297K3WmciT_dP_UY9AtJru_NW6Ox4aOo11zogKMY4yJadZVGWNmxboKgp4TujFTwoJBdPr11dIHxaICngJKzqNGDWh3uHVIjwoIlAxrgBjkgVALIhpq11QI1bcHFJRZvSRr1a__UOQ_6mCXI9DrHJeXNfD-4yD6S41XpiBmh0MYxFHEmjauB7UNkhCCqD2S4M2hFXPlP4l9raP9MDHh3PPnhAG9EDdx5dgvTmU5rOPb3liEPRMwxmu9GwxJwC2pIMf6-qrrlnCEjz0tOrbbe8ZqIL6RxLKjuhYNDFviRVCFqz0QekTo8EAmPGP8eRdQqDbM-2keRa-KAcHh9haCDFGWpqhf3_CjnQYp5ov81tWsMFG2VqK3AghWyaw';
     api.defaults.headers.common['Authorization'] = `Bearer ${token2}`;
-    console.log("token", token2)
+    // console.log("token", token2)
     api.post(endpoint)
         .then(response => {
 
@@ -87,12 +89,26 @@ function getTincapheData() {
             let ittirationForRobusta = 0
             let ittirationForArabica = 0
             let ittirationForXE = 0
-            
+
             let newArray = response.data.result.map((ele, index) => {
-                if (index >= 26 && index <= 30) {
-                    // if (index >= 41 && index <= 42) {
+                // if (index >= 26 && index <= 30) {
+                    if (index >= 36 && index <= 40) {
+                    let isHighlightValue = 0
+                    console.log("vs",ele.vs[2],"global",robustaGlobalArray[ittirationForRobusta]?.chng);
+                    // console.log("ROBUSTA DATA",robustaGlobalArray[ittirationForRobusta]);
+                    if ((ele.vs[2] != robustaGlobalArray[ittirationForRobusta]?.chng)) {
+                        if (ele.vs[2] >= 0) {
+                            isHighlightValue = 1
+                        }
+                        else if (ele.vs[2] < 0) {
+                            isHighlightValue = 2
+                        }
+                        else {
+                            isHighlightValue = 3
+                        }
+                    }
                     const object = {
-                        isHighlet: true,
+                        isHighlight: isHighlightValue,
                         id: 0,
                         createdBy: 1,
                         createdOn: "2023-07-08T06:41:51.810Z",
@@ -101,7 +117,7 @@ function getTincapheData() {
                         idMarket: 1,
                         contractName: robustaNameList[ittirationForRobusta],
                         lastChng: parseInt(ele.vs[1]),
-                        chng: parseInt(ele.vs[2]),
+                        chng: ele.vs[2],
                         percentageVal: ele.vs[3],
                         volume: parseInt(ele.vs[4]),
                         highRate: typeof ele.vs[6] == "string" ? parseInt(ele.vs[6].replace(",", "")) : ele.vs[6],
@@ -115,8 +131,8 @@ function getTincapheData() {
                         bsize: ele.vs[12],
                         ask: ele.vs[13],
                         asize: ele.vs[14],
-                        optionExpiry: "2023-07-08T06:41:51.810Z",
-                        firstNoticeDate: "2023-07-08T06:41:51.810Z",
+                        optionExpiry: optionExpiryForRobusta[ittirationForRobusta],
+                        firstNoticeDate: firstNoticeDateForRobusta[ittirationForRobusta],
                         highCurrency: 0,
                         lowCurrency: 0,
                         marketName: robustaNameList[ittirationForRobusta],
@@ -126,16 +142,28 @@ function getTincapheData() {
                     robustaArray.push(object)
                     ittirationForRobusta += 1
                 }
-                if (index >= 4 && index <= 7) {
-                    // if (1==2) {
+                // if (index >= 4 && index <= 7) {
+                if (1 == 2 ) {
+                    let isHighlightValue = 0
+                    if ((ele.vs[2] != arabicaGlobalArray[ittirationForArabica]?.chng)) {
+                        if (ele.vs[2] >= 0) {
+                            isHighlightValue = 1
+                        }
+                        else if (ele.vs[2] < 0) {
+                            isHighlightValue = 2
+                        }
+                        else {
+                            isHighlightValue = 3
+                        }
+                    }
                     const object = {
-                        isHighlet: true,
+                        isHighlight: isHighlightValue,
                         id: 0,
                         createdBy: 1,
                         createdOn: "2023-07-08T06:41:51.810Z",
                         updatedBy: 1,
                         updatedDtms: "2023-07-08T06:41:51.810Z",
-                        idMarket: 1,
+                        idMarket: 2,
                         contractName: arabicaNameList[ittirationForArabica],
                         lastChng: parseInt(ele.vs[1]),
                         chng: parseInt(ele.vs[2]),
@@ -152,8 +180,8 @@ function getTincapheData() {
                         bsize: ele.vs[12],
                         ask: ele.vs[13],
                         asize: ele.vs[14],
-                        optionExpiry: "2023-07-08T06:41:51.810Z",
-                        firstNoticeDate: "2023-07-08T06:41:51.810Z",
+                        optionExpiry: optionExpiryForArabica[ittirationForArabica],
+                        firstNoticeDate: firstNoticeDateForArabica[ittirationForArabica],
                         highCurrency: 0,
                         lowCurrency: 0,
                         marketName: arabicaNameList[ittirationForArabica],
@@ -165,6 +193,8 @@ function getTincapheData() {
                 }
             });
             postDataToCoffeeWeb(robustaArray, arabicaArray)
+            robustaGlobalArray = robustaArray;
+            arabicaGlobalArray = arabicaArray;
             // console.log("Data From API", response.data)
         })
         .catch(error => {
@@ -172,11 +202,11 @@ function getTincapheData() {
             generateToken()
         });
 }
-let localAuthToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjIxNDc0ODM2NDYiLCJuYmYiOjE2ODkyMjk5MjgsImV4cCI6MTY4OTgzNDcyOCwiaWF0IjoxNjg5MjI5OTI4fQ.E5nitnlmksaImws9lxXWioKiMLkrfv5hfEx4uy1grEI"
+let localAuthToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjIxNDc0ODM2NDYiLCJuYmYiOjE2ODk4MzE2NzgsImV4cCI6MTY5MDQzNjQ3OCwiaWF0IjoxNjg5ODMxNjc4fQ.c293daCy7cKzPwJ2HZithXKYkJe83xIi8Eek76wodn4"
 function postDataToCoffeeWeb(robustaArray, arabicaArray) {
     let data = robustaArray.concat(arabicaArray);
-    console.log("data", data)
-    fetch('https://coffeeweb.org/api/TincapheAuth/PostTincapheMarketData', {
+    // console.log("data", data)
+    fetch('https://coffeeweb.org/api/TincapheAuth/InsertTincapheData', {
         method: 'POST',
         headers: {
             Authorization: `Bearer ${localAuthToken}`,
