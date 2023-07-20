@@ -2,16 +2,13 @@ import axios from "axios";
 import tough from "tough-cookie"
 import fetch from "node-fetch";
 import express, { response } from "express"
-import dotenv from 'dotenv'
-import cors from 'cors'
 const app = express()
+import dotenv from 'dotenv'
 dotenv.config()
+import cors from 'cors'
 app.use(cors())
-
-
 app.use(express.json())
 
-//To replicate Browser Cookie Action
 const cookieJar = new tough.CookieJar();
 
 let robustaNameList = [
@@ -62,15 +59,17 @@ const api = axios.create({
     jar: cookieJar,
 });
 
+
 let generatedToken;
 
 setInterval(() => {
     getTincapheData()
-}, 2000);
+}, 5000);
 
+let robustaGlobalArray = []
+let arabicaGlobalArray = []
+let xeGlobalArray = []
 
-
-//To post data to Local DataBase
 function getTincapheData() {
     let token2 = generatedToken
     api.defaults.headers['User-Agent'] = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36';
@@ -87,12 +86,12 @@ function getTincapheData() {
             let ittirationForRobusta = 0
             let ittirationForArabica = 0
             let ittirationForXE = 0
-            
+
             let newArray = response.data.result.map((ele, index) => {
                 if (index >= 26 && index <= 30) {
                     // if (index >= 41 && index <= 42) {
                     const object = {
-                        isHighlet: true,
+                        isHighlight: 0,
                         id: 0,
                         createdBy: 1,
                         createdOn: "2023-07-08T06:41:51.810Z",
@@ -101,7 +100,7 @@ function getTincapheData() {
                         idMarket: 1,
                         contractName: robustaNameList[ittirationForRobusta],
                         lastChng: parseInt(ele.vs[1]),
-                        chng: parseInt(ele.vs[2]),
+                        chng: ele.vs[2],
                         percentageVal: ele.vs[3],
                         volume: parseInt(ele.vs[4]),
                         highRate: typeof ele.vs[6] == "string" ? parseInt(ele.vs[6].replace(",", "")) : ele.vs[6],
@@ -115,8 +114,8 @@ function getTincapheData() {
                         bsize: ele.vs[12],
                         ask: ele.vs[13],
                         asize: ele.vs[14],
-                        optionExpiry: "2023-07-08T06:41:51.810Z",
-                        firstNoticeDate: "2023-07-08T06:41:51.810Z",
+                        optionExpiry: optionExpiryForRobusta[ittirationForRobusta],
+                        firstNoticeDate: firstNoticeDateForRobusta[ittirationForRobusta],
                         highCurrency: 0,
                         lowCurrency: 0,
                         marketName: robustaNameList[ittirationForRobusta],
@@ -127,18 +126,17 @@ function getTincapheData() {
                     ittirationForRobusta += 1
                 }
                 if (index >= 4 && index <= 7) {
-                    // if (1==2) {
                     const object = {
-                        isHighlet: true,
+                        isHighlight: 0,
                         id: 0,
                         createdBy: 1,
                         createdOn: "2023-07-08T06:41:51.810Z",
                         updatedBy: 1,
                         updatedDtms: "2023-07-08T06:41:51.810Z",
-                        idMarket: 1,
+                        idMarket: 2,
                         contractName: arabicaNameList[ittirationForArabica],
                         lastChng: parseInt(ele.vs[1]),
-                        chng: parseInt(ele.vs[2]),
+                        chng: ele.vs[2],
                         percentageVal: ele.vs[3],
                         volume: parseInt(ele.vs[4]),
                         highRate: typeof ele.vs[6] == "string" ? parseInt(ele.vs[6].replace(",", "")) : ele.vs[6],
@@ -152,8 +150,8 @@ function getTincapheData() {
                         bsize: ele.vs[12],
                         ask: ele.vs[13],
                         asize: ele.vs[14],
-                        optionExpiry: "2023-07-08T06:41:51.810Z",
-                        firstNoticeDate: "2023-07-08T06:41:51.810Z",
+                        optionExpiry: optionExpiryForArabica[ittirationForArabica],
+                        firstNoticeDate: firstNoticeDateForArabica[ittirationForArabica],
                         highCurrency: 0,
                         lowCurrency: 0,
                         marketName: arabicaNameList[ittirationForArabica],
@@ -165,18 +163,17 @@ function getTincapheData() {
                 }
             });
             postDataToCoffeeWeb(robustaArray, arabicaArray)
-            // console.log("Data From API", response.data)
         })
         .catch(error => {
             console.error('Error:', error.message);
             generateToken()
         });
 }
-let localAuthToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjIxNDc0ODM2NDYiLCJuYmYiOjE2ODkyMjk5MjgsImV4cCI6MTY4OTgzNDcyOCwiaWF0IjoxNjg5MjI5OTI4fQ.E5nitnlmksaImws9lxXWioKiMLkrfv5hfEx4uy1grEI"
+let localAuthToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjIxNDc0ODM2NDYiLCJuYmYiOjE2ODk2NTk3NDMsImV4cCI6MTY5MDI2NDU0MywiaWF0IjoxNjg5NjU5NzQzfQ.Pa7qAUSF5U2a1SVn5M60CP-RtxkyvofER3cVBbjVSJM"
 function postDataToCoffeeWeb(robustaArray, arabicaArray) {
     let data = robustaArray.concat(arabicaArray);
     console.log("data", data)
-    fetch('https://coffeeweb.org/api/TincapheAuth/PostTincapheMarketData', {
+    fetch('https://coffeeweb.org/api/TincapheAuth/InsertTincapheData', {
         method: 'POST',
         headers: {
             Authorization: `Bearer ${localAuthToken}`,
