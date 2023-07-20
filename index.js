@@ -92,9 +92,9 @@ function getTincapheData() {
 
             let newArray = response.data.result.map((ele, index) => {
                 // if (index >= 26 && index <= 30) {
-                    if (index >= 36 && index <= 40) {
+                if (index >= 36 && index <= 40) {
                     let isHighlightValue = 0
-                    console.log("vs",ele.vs[2],"global",robustaGlobalArray[ittirationForRobusta]?.chng);
+                    console.log("vs", ele.vs[2], "global", robustaGlobalArray[ittirationForRobusta]?.chng);
                     // console.log("ROBUSTA DATA",robustaGlobalArray[ittirationForRobusta]);
                     if ((ele.vs[2] != robustaGlobalArray[ittirationForRobusta]?.chng)) {
                         if (ele.vs[2] >= 0) {
@@ -143,7 +143,7 @@ function getTincapheData() {
                     ittirationForRobusta += 1
                 }
                 // if (index >= 4 && index <= 7) {
-                if (1 == 2 ) {
+                if (index >= 36 && index <= 40) {
                     let isHighlightValue = 0
                     if ((ele.vs[2] != arabicaGlobalArray[ittirationForArabica]?.chng)) {
                         if (ele.vs[2] >= 0) {
