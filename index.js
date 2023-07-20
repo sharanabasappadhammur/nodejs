@@ -143,7 +143,7 @@ function getTincapheData() {
                     ittirationForRobusta += 1
                 }
                 // if (index >= 4 && index <= 7) {
-                if (index >= 36 && index <= 40) {
+                if (index >= 37 && index <= 40) {
                     let isHighlightValue = 0
                     if ((ele.vs[2] != arabicaGlobalArray[ittirationForArabica]?.chng)) {
                         if (ele.vs[2] >= 0) {
@@ -166,7 +166,7 @@ function getTincapheData() {
                         idMarket: 2,
                         contractName: arabicaNameList[ittirationForArabica],
                         lastChng: parseInt(ele.vs[1]),
-                        chng: parseInt(ele.vs[2]),
+                        chng: ele.vs[2],
                         percentageVal: ele.vs[3],
                         volume: parseInt(ele.vs[4]),
                         highRate: typeof ele.vs[6] == "string" ? parseInt(ele.vs[6].replace(",", "")) : ele.vs[6],
