@@ -141,8 +141,8 @@ function getTincapheData() {
             let ittirationForXE = 0
 
             let newArray = response.data.result.map((ele, index) => {
-                if (index >= 26 && index <= 30) {
-                //     if (index >= 41 && index <= 42) {
+                //if (index >= 26 && index <= 30) {
+                  if (index >= 36 && index <= 40) {
                     const object = {
                         isHighlight: 0,
                         id: ittirationForRobusta,
