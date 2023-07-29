@@ -112,6 +112,8 @@ setInterval(() => {
     Logout()
 }, 3600000)
 
+let timeStamp = new Date()
+console.log(timeStamp)
 
 let generatedToken;
 
@@ -141,13 +143,13 @@ function getTincapheData() {
             let ittirationForXE = 0
 
             let newArray = response.data.result.map((ele, index) => {
-                // if (index >= 26 && index <= 30) {
-                if (index >= 36 && index <= 40) {
+                if (index >= 26 && index <= 30) {
+                // if (index >= 36 && index <= 40) {
                     const object = {
                         isHighlight: 0,
                         id: ittirationForRobusta,
                         createdBy: 1,
-                        createdOn: "2023-07-08T06:41:51.810Z",
+                        createdOn: new Date(),
                         updatedBy: 1,
                         updatedDtms: "2023-07-08T06:41:51.810Z",
                         idMarket: 1,
@@ -183,7 +185,7 @@ function getTincapheData() {
                         isHighlight: 0,
                         id: ittirationForArabica,
                         createdBy: 1,
-                        createdOn: "2023-07-08T06:41:51.810Z",
+                        createdOn: new Date(),
                         updatedBy: 1,
                         updatedDtms: "2023-07-08T06:41:51.810Z",
                         idMarket: 2,
