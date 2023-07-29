@@ -77,23 +77,23 @@ let payload = {
 let generatedTokenForAuthenticate;
 function Login() {
     api.defaults.headers['User-Agent'] = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36';
-    api.post("http://tincaphe.com//api/account/authenticate",payload)
+    api.post("http://tincaphe.com//api/account/authenticate", payload)
         .then(response => {
-            console.log("response...........",response?.data?.result?.access_token?.slice(0,50))
+            console.log("response...........", response?.data?.result?.access_token?.slice(0, 50))
             generatedTokenForAuthenticate = response?.data?.result?.access_token
             // setTimeout(()=>{
             //     Logout()
             // },10000)
         })
         .catch(error => {
-            console.error('Error:', error.message);
+            console.error('Error while logging in:', error.message);
         });
 }
 
 
 function Logout() {
     let currentTokenForLogout = generatedTokenForAuthenticate
-    console.log("currentTokenForLogout..........",currentTokenForLogout?.slice(0,50))
+    console.log("currentTokenForLogout..........", currentTokenForLogout?.slice(0, 50))
     api.defaults.headers['User-Agent'] = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36';
     api.defaults.headers.common['Authorization'] = `Bearer ${currentTokenForLogout}`;
     api.get("http://tincaphe.com//api/account/logout")
@@ -102,15 +102,15 @@ function Logout() {
             Login()
         })
         .catch(error => {
-            console.error('Error:', error.message);
+            console.error('Error while logging out:', error.message);
         });
 }
 
 // Login()
 
-setInterval(()=>{
+setInterval(() => {
     Logout()
-},3600000)
+}, 3600000)
 
 
 let generatedToken;
@@ -141,8 +141,8 @@ function getTincapheData() {
             let ittirationForXE = 0
 
             let newArray = response.data.result.map((ele, index) => {
-                if (index >= 26 && index <= 30) {
-                //  if (index >= 36 && index <= 40) {
+                // if (index >= 26 && index <= 30) {
+                if (index >= 36 && index <= 40) {
                     const object = {
                         isHighlight: 0,
                         id: ittirationForRobusta,
@@ -218,7 +218,7 @@ function getTincapheData() {
             postDataToCoffeeWeb(robustaArray, arabicaArray)
         })
         .catch(error => {
-            console.error('Error:', error.message);
+            console.error('Error while fetching data:', error.message);
             // generateToken()
             Login()
         });
@@ -288,3 +288,6 @@ app.listen(process.env.PORT, async () => {
         console.log(error.message)
     }
 })
+
+
+// Error: getaddrinfo ENOTFOUND tincaphe.com, what does this error means
