@@ -119,7 +119,7 @@ let generatedToken;
 
 setInterval(() => {
     getTincapheData()
-}, 5000);
+}, 1000);
 
 let robustaGlobalArray = []
 let arabicaGlobalArray = []
