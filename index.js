@@ -221,7 +221,7 @@ function getTincapheData() {
             console.log("getting data from tincaphe")
         })
         .catch(error => {
-            console.error('Error while fetching data:', error.message);
+            console.error('Error while fetching data 222222:', error.message);
             // generateToken()
             Login()
         });
