@@ -218,6 +218,7 @@ function getTincapheData() {
                 }
             });
             postDataToCoffeeWeb(robustaArray, arabicaArray)
+            console.log("getting data from tincaphe")
         })
         .catch(error => {
             console.error('Error while fetching data:', error.message);
