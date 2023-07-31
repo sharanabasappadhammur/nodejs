@@ -68,8 +68,8 @@ const api = axios.create({
 let payload = {
     grant_type: "password",
     client_id: "APP",
-    usernameOrEmailAddress: "integrated",
-    password: "welcome",
+    usernameOrEmailAddress: "Intefrated3",
+    password: "789",
     tenancyName: "Default",
     rememberMe: false
 }
