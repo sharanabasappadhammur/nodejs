@@ -180,7 +180,7 @@ function getTincapheData() {
                     robustaArray.push(object)
                     ittirationForRobusta += 1
                 }
-                if (index >= 4 && index <= 7) {
+                if (index >= 3 && index <= 6) {
                     const object = {
                         isHighlight: 0,
                         id: ittirationForArabica,
