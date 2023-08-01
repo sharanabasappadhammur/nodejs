@@ -22,9 +22,9 @@ let robustaNameList = [
 let arabicaNameList = [
     // "KCN-23 (Jul 23)",
     "KCU-23 (SEP 23)",
-    "KCZ-22 (DEC 22)",
-    "KCH-23 (MAR 23)",
-    "KCK-23 (MAY 23)"
+    "KCZ-22 (DEC 23)",
+    "KCH-23 (MAR 24)",
+    "KCK-23 (MAY 24)"
 ]
 let optionExpiryForRobusta = [
     "16-AUG-2023",
