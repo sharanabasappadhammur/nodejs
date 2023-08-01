@@ -119,7 +119,11 @@ let generatedToken;
 
 setInterval(() => {
     getTincapheData()
+<<<<<<< HEAD
 }, 10000);
+=======
+}, 1000);
+>>>>>>> b4573c5a5cbd144ef8dcfbc3c3f1c1c4ac7aff18
 
 let robustaGlobalArray = []
 let arabicaGlobalArray = []
@@ -221,7 +225,7 @@ function getTincapheData() {
             // console.log("getting data from tincaphe")
         })
         .catch(error => {
-            console.error('Error while fetching data:', error.message);
+            console.error('Error while fetching data 222222:', error.message);
             // generateToken()
             Login()
         });
