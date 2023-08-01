@@ -16,6 +16,7 @@
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "node-fetch": "^3.3.1",
+    "node-modules": "^1.0.1",
     "nodemon": "^2.0.22",
     "tough-cookie": "^4.1.3"
   }
