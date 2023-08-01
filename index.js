@@ -119,7 +119,7 @@ let generatedToken;
 
 setInterval(() => {
     getTincapheData()
-}, 5000);
+}, 10000);
 
 let robustaGlobalArray = []
 let arabicaGlobalArray = []
@@ -218,7 +218,7 @@ function getTincapheData() {
                 }
             });
             postDataToCoffeeWeb(robustaArray, arabicaArray)
-            console.log("getting data from tincaphe")
+            // console.log("getting data from tincaphe")
         })
         .catch(error => {
             console.error('Error while fetching data:', error.message);
@@ -230,7 +230,7 @@ function getTincapheData() {
 let localAuthToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjIxNDc0ODM2NDYiLCJuYmYiOjE2ODk2NTk3NDMsImV4cCI6MTY5MDI2NDU0MywiaWF0IjoxNjg5NjU5NzQzfQ.Pa7qAUSF5U2a1SVn5M60CP-RtxkyvofER3cVBbjVSJM"
 function postDataToCoffeeWeb(robustaArray, arabicaArray) {
     let data = robustaArray.concat(arabicaArray);
-    // console.log("data", data)
+    console.log("postDatadata...............", data)
     fetch('https://coffeeweb.org/api/TincapheAuth/InsertTincapheData', {
         method: 'POST',
         headers: {
