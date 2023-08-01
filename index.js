@@ -282,10 +282,6 @@ function generateToken() {
         });
 }
 
-app.get("/",(req,res)=>{
-    res.send({name:"anil"})
-})
-
 app.listen(process.env.PORT, async () => {
     try {
         console.log("connected to server")
