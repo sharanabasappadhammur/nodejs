@@ -119,7 +119,7 @@ let generatedToken;
 
 setInterval(() => {
     getTincapheData()
-}, 1000);
+}, 5000);
 
 let robustaGlobalArray = []
 let arabicaGlobalArray = []
@@ -157,7 +157,7 @@ function getTincapheData() {
                         lastChng: parseInt(ele.vs[1]),
                         chng: ele.vs[2],
                         percentageVal: ele.vs[3],
-                        volume: ele.vs[4],
+                        volume: typeof ele.vs[4] == "string" ? parseInt(ele.vs[4].replace(",", "")) : ele.vs[4],
                         highRate: typeof ele.vs[6] == "string" ? parseInt(ele.vs[6].replace(",", "")) : ele.vs[6],
                         highRateCurrency: 0,
                         lowRate: typeof ele.vs[7] == "string" ? parseInt(ele.vs[7].replace(",", "")) : ele.vs[7],
@@ -193,7 +193,7 @@ function getTincapheData() {
                         lastChng: parseFloat(ele.vs[1]),
                         chng: ele.vs[2],
                         percentageVal: ele.vs[3],
-                        volume: ele.vs[4],
+                        volume: typeof ele.vs[4] == "string" ? parseInt(ele.vs[4].replace(",", "")) : ele.vs[4],
                         highRate: typeof ele.vs[6] == "string" ? parseInt(ele.vs[6].replace(",", "")) : ele.vs[6],
                         highRateCurrency: 0,
                         lowRate: typeof ele.vs[7] == "string" ? parseInt(ele.vs[7].replace(",", "")) : ele.vs[7],
@@ -218,7 +218,7 @@ function getTincapheData() {
                 }
             });
             postDataToCoffeeWeb(robustaArray, arabicaArray)
-            // console.log("getting data from tincaphe")
+            console.log("getting data from tincaphe")
         })
         .catch(error => {
             console.error('Error while fetching data:', error.message);
@@ -230,6 +230,7 @@ function getTincapheData() {
 let localAuthToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjIxNDc0ODM2NDYiLCJuYmYiOjE2ODk2NTk3NDMsImV4cCI6MTY5MDI2NDU0MywiaWF0IjoxNjg5NjU5NzQzfQ.Pa7qAUSF5U2a1SVn5M60CP-RtxkyvofER3cVBbjVSJM"
 function postDataToCoffeeWeb(robustaArray, arabicaArray) {
     let data = robustaArray.concat(arabicaArray);
+    console.log(data)
     fetch('https://coffeeweb.org/api/TincapheAuth/InsertTincapheData', {
         method: 'POST',
         headers: {
