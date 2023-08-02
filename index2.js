@@ -75,14 +75,6 @@ let payload = {
     tenancyName: "Default",
     rememberMe: false
 }
-// let payload = {
-//     grant_type: "password",
-//     client_id: "APP",
-//     usernameOrEmailAddress: "integrated2",
-//     password: "7979",
-//     tenancyName: "Default",
-//     rememberMe: false
-// }
 
 let generatedTokenForAuthenticate;
 function Login() {
@@ -140,32 +132,20 @@ let preCloseArabicaGlobalArray = []
 let preCloseXeGlobalArray = []
 
 function myFunction() {
-    console.log("robustaGlobalArray", robustaGlobalArray)
-    console.log("arabicaGlobalArray", arabicaGlobalArray)
+    console.log("robustaGlobalArray",robustaGlobalArray)
+    console.log("arabicaGlobalArray",arabicaGlobalArray)
     preCloseRobustaGlobalArray = robustaGlobalArray
     preCloseArabicaGlobalArray = arabicaGlobalArray
     // Replace this with your desired function's code
     console.log("This function runs daily at 1:29:50 PM!");
-}
-
-// Schedule the function to run daily at 12:25 PM
-cron.schedule('50 29 13 * * *', myFunction);
+  }
+  
+  // Schedule the function to run daily at 12:25 PM
+  cron.schedule('50 29 13 * * *', myFunction);
 //   cron.schedule('sec min hr * * *', myFunction);
 
 // cron.schedule('*/1 * * * *', myFunction);
 
-let rowIds = [
-    "89ee81a5-a680-4207-ad25-6547d2ac9339",
-    "a6225921-0804-4dc3-a15a-4967659abbda",
-    "f0538d6e-a937-4820-a8a6-934e4dde5724",
-    "7cf1c98d-b646-479d-924d-9155ee2da13f",
-    "6acae6b3-a63a-4831-8cbc-298b132d5381",
-
-    "2bf4396a-c63b-425d-b772-27c9691ada1f",
-    "e83f088d-1d96-4ff8-b4d0-0eb35dcac720",
-    "ad6789b9-b75c-43ac-8df7-14047fd376a2",
-    "c06c6ac6-70e7-4aa5-80b9-622ae8c6f8ae",
-]
 
 function getTincapheData() {
     // let token2 = generatedToken
@@ -183,9 +163,11 @@ function getTincapheData() {
             let ittirationForRobusta = 0
             let ittirationForArabica = 0
             let ittirationForXE = 0
-            for (let i = 0; i < rowIds.length; i++) {
-                let targetedObject = response.data.result.find((ele) => rowIds[i] === ele.id)
-                if (i <= 4) {
+
+            let newArray = response.data.result.map((ele, index) => {
+                if (index >= 25 && index <= 29) {
+                    console.log(preCloseRobustaGlobalArray[ittirationForRobusta]?.lastChng)
+                // if (index >= 36 && index <= 40) {
                     const object = {
                         isHighlight: 0,
                         id: ittirationForRobusta,
@@ -195,21 +177,22 @@ function getTincapheData() {
                         updatedDtms: "2023-07-08T06:41:51.810Z",
                         idMarket: 1,
                         contractName: robustaNameList[ittirationForRobusta],
-                        lastChng: parseInt(targetedObject.vs[1]),
-                        chng: targetedObject.vs[2],
-                        percentageVal: targetedObject.vs[3],
-                        volume: typeof targetedObject.vs[4] == "string" ? parseInt(targetedObject.vs[4].replace(",", "")) : targetedObject.vs[4],
-                        highRate: typeof targetedObject.vs[6] == "string" ? parseInt(targetedObject.vs[6].replace(",", "")) : targetedObject.vs[6],
+                        lastChng: parseInt(ele.vs[1]),
+                        chng: ele.vs[2],
+                        percentageVal: ele.vs[3],
+                        volume: typeof ele.vs[4] == "string" ? parseInt(ele.vs[4].replace(",", "")) : ele.vs[4],
+                        highRate: typeof ele.vs[6] == "string" ? parseInt(ele.vs[6].replace(",", "")) : ele.vs[6],
                         highRateCurrency: 0,
-                        lowRate: typeof targetedObject.vs[7] == "string" ? parseInt(targetedObject.vs[7].replace(",", "")) : targetedObject.vs[7],
+                        lowRate: typeof ele.vs[7] == "string" ? parseInt(ele.vs[7].replace(",", "")) : ele.vs[7],
                         lowRateCurrency: 0,
-                        openRate: typeof targetedObject.vs[8] == "string" ? parseInt(targetedObject.vs[8].replace(",", "")) : targetedObject.vs[8],
-                        prevRate: typeof targetedObject.vs[9] == "string" ? parseInt(targetedObject.vs[9].replace(",", "")) : targetedObject.vs[9],
-                        openInterest: targetedObject.vs[10],
-                        bid: targetedObject.vs[11],
-                        bsize: targetedObject.vs[12],
-                        ask: targetedObject.vs[13],
-                        asize: targetedObject.vs[14],
+                        openRate: typeof ele.vs[8] == "string" ? parseInt(ele.vs[8].replace(",", "")) : ele.vs[8],
+                        // prevRate: preCloseRobustaGlobalArray[ittirationForRobusta]?.lastChng,
+                        prevRate: typeof ele.vs[9] == "string" ? parseInt(ele.vs[9].replace(",", "")) : ele.vs[9],
+                        openInterest: ele.vs[10],
+                        bid: ele.vs[11],
+                        bsize: ele.vs[12],
+                        ask: ele.vs[13],
+                        asize: ele.vs[14],
                         optionExpiry: optionExpiryForRobusta[ittirationForRobusta],
                         firstNoticeDate: firstNoticeDateForRobusta[ittirationForRobusta],
                         highCurrency: 0,
@@ -221,7 +204,7 @@ function getTincapheData() {
                     robustaArray.push(object)
                     ittirationForRobusta += 1
                 }
-                else {
+                if (index >= 3 && index <= 6) {
                     const object = {
                         isHighlight: 0,
                         id: ittirationForArabica,
@@ -231,21 +214,22 @@ function getTincapheData() {
                         updatedDtms: "2023-07-08T06:41:51.810Z",
                         idMarket: 2,
                         contractName: arabicaNameList[ittirationForArabica],
-                        lastChng: parseFloat(targetedObject.vs[1]),
-                        chng: targetedObject.vs[2],
-                        percentageVal: targetedObject.vs[3],
-                        volume: typeof targetedObject.vs[4] == "string" ? parseInt(targetedObject.vs[4].replace(",", "")) : targetedObject.vs[4],
-                        highRate: typeof targetedObject.vs[6] == "string" ? parseInt(targetedObject.vs[6].replace(",", "")) : targetedObject.vs[6],
+                        lastChng: parseFloat(ele.vs[1]),
+                        chng: ele.vs[2],
+                        percentageVal: ele.vs[3],
+                        volume: typeof ele.vs[4] == "string" ? parseInt(ele.vs[4].replace(",", "")) : ele.vs[4],
+                        highRate: typeof ele.vs[6] == "string" ? parseInt(ele.vs[6].replace(",", "")) : ele.vs[6],
                         highRateCurrency: 0,
-                        lowRate: typeof targetedObject.vs[7] == "string" ? parseInt(targetedObject.vs[7].replace(",", "")) : targetedObject.vs[7],
+                        lowRate: typeof ele.vs[7] == "string" ? parseInt(ele.vs[7].replace(",", "")) : ele.vs[7],
                         lowRateCurrency: 0,
-                        openRate: typeof targetedObject.vs[8] == "string" ? parseInt(targetedObject.vs[8].replace(",", "")) : targetedObject.vs[8],
-                        prevRate: typeof targetedObject.vs[9] == "string" ? parseInt(targetedObject.vs[9].replace(",", "")) : targetedObject.vs[9],
-                        openInterest: targetedObject.vs[10],
-                        bid: targetedObject.vs[11],
-                        bsize: targetedObject.vs[12],
-                        ask: targetedObject.vs[13],
-                        asize: targetedObject.vs[14],
+                        openRate: typeof ele.vs[8] == "string" ? parseInt(ele.vs[8].replace(",", "")) : ele.vs[8],
+                        // prevRate: preCloseArabicaGlobalArray[ittirationForArabica]?.lastChng,
+                        prevRate: typeof ele.vs[9] == "string" ? parseInt(ele.vs[9].replace(",", "")) : ele.vs[9],
+                        openInterest: ele.vs[10],
+                        bid: ele.vs[11],
+                        bsize: ele.vs[12],
+                        ask: ele.vs[13],
+                        asize: ele.vs[14],
                         optionExpiry: optionExpiryForArabica[ittirationForArabica],
                         firstNoticeDate: firstNoticeDateForArabica[ittirationForArabica],
                         highCurrency: 0,
@@ -257,7 +241,7 @@ function getTincapheData() {
                     arabicaArray.push(object)
                     ittirationForArabica += 1
                 }
-            }
+            });
             postDataToCoffeeWeb(robustaArray, arabicaArray)
             console.log("getting data from tincaphe")
         })
@@ -308,3 +292,14 @@ app.listen(process.env.PORT, async () => {
         console.log(error.message)
     }
 })
+
+//25: 89ee81a5-a680-4207-ad25-6547d2ac9339
+//26: a6225921-0804-4dc3-a15a-4967659abbda
+//27: f0538d6e-a937-4820-a8a6-934e4dde5724
+//28: 7cf1c98d-b646-479d-924d-9155ee2da13f
+//29: 6acae6b3-a63a-4831-8cbc-298b132d5381
+
+// 3: 2bf4396a-c63b-425d-b772-27c9691ada1f
+// 4: e83f088d-1d96-4ff8-b4d0-0eb35dcac720
+// 5: ad6789b9-b75c-43ac-8df7-14047fd376a2
+// 6: c06c6ac6-70e7-4aa5-80b9-622ae8c6f8ae
