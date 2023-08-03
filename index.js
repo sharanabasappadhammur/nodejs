@@ -193,7 +193,7 @@ function getTincapheData() {
                         openRate: typeof targetedObject.vs[8] == "string" ? parseInt(targetedObject.vs[8].replace(",", "")) : targetedObject.vs[8],
                         // prevRate: typeof targetedObject.vs[9] == "string" ? parseInt(targetedObject.vs[9].replace(",", "")) : targetedObject.vs[9],
                         // prevRate: ((hour === 1 && minute >= 30) || (hour === 10 && minute <= 30)) ? typeof targetedObject.vs[9] == "string" ? parseInt(targetedObject.vs[9].replace(",", "")) : targetedObject.vs[9] : parseInt(targetedObject.vs[1]) - targetedObject.vs[2],
-                        prevRate: ((hour === 1 && minute >= 30) || (hour === 2 && minute <= 35)) ? typeof targetedObject.vs[9] == "string" ? parseInt(targetedObject.vs[9].replace(",", "")) : targetedObject.vs[9] : parseInt(targetedObject.vs[1]) - targetedObject.vs[2] - 1000,
+                        prevRate: ((hour === 1 && minute >= 30) || (hour === 10 && minute <= 30)) ? typeof targetedObject.vs[9] == "string" ? parseInt(targetedObject.vs[9].replace(",", "")) : targetedObject.vs[9] : parseInt(targetedObject.vs[1]) - targetedObject.vs[2],
                         openInterest: targetedObject.vs[10],
                         bid: targetedObject.vs[11],
                         bsize: targetedObject.vs[12],
