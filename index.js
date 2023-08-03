@@ -61,12 +61,6 @@ const api = axios.create({
     jar: cookieJar,
 });
 
-// get
-// http://tincaphe.com//api/account/logout
-
-// post
-// http://tincaphe.com//api/account/authenticate
-
 let payload = {
     grant_type: "password",
     client_id: "APP",
@@ -84,6 +78,8 @@ let payload = {
 //     rememberMe: false
 // }
 
+let localAuthToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjIxNDc0ODM2NDYiLCJuYmYiOjE2ODk2NTk3NDMsImV4cCI6MTY5MDI2NDU0MywiaWF0IjoxNjg5NjU5NzQzfQ.Pa7qAUSF5U2a1SVn5M60CP-RtxkyvofER3cVBbjVSJM"
+
 let generatedTokenForAuthenticate;
 function Login() {
     api.defaults.headers['User-Agent'] = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36';
@@ -91,9 +87,6 @@ function Login() {
         .then(response => {
             console.log("response...........", response?.data?.result?.access_token?.slice(0, 50))
             generatedTokenForAuthenticate = response?.data?.result?.access_token
-            // setTimeout(()=>{
-            //     Logout()
-            // },10000)
         })
         .catch(error => {
             console.error('Error while logging in:', error.message);
@@ -116,16 +109,12 @@ function Logout() {
         });
 }
 
-// Login()
-
 setInterval(() => {
     Logout()
 }, 3600000)
 
-let timeStamp = new Date()
-console.log(timeStamp)
-
-let generatedToken;
+// let timeStamp = new Date()
+// console.log(timeStamp)
 
 setInterval(() => {
     getTincapheData()
@@ -140,19 +129,20 @@ let preCloseArabicaGlobalArray = []
 let preCloseXeGlobalArray = []
 
 function myFunction() {
-    console.log("robustaGlobalArray", robustaGlobalArray)
-    console.log("arabicaGlobalArray", arabicaGlobalArray)
     preCloseRobustaGlobalArray = robustaGlobalArray
     preCloseArabicaGlobalArray = arabicaGlobalArray
-    // Replace this with your desired function's code
     console.log("This function runs daily at 1:29:50 PM!");
 }
 
 // Schedule the function to run daily at 12:25 PM
-cron.schedule('50 29 13 * * *', myFunction);
+// cron.schedule('50 29 13 * * *', myFunction);
 //   cron.schedule('sec min hr * * *', myFunction);
 
 // cron.schedule('*/1 * * * *', myFunction);
+
+const currentTime = new Date();
+const hour = currentTime.getHours();
+const minute = currentTime.getMinutes();
 
 let rowIds = [
     "89ee81a5-a680-4207-ad25-6547d2ac9339",
@@ -160,7 +150,6 @@ let rowIds = [
     "f0538d6e-a937-4820-a8a6-934e4dde5724",
     "7cf1c98d-b646-479d-924d-9155ee2da13f",
     "6acae6b3-a63a-4831-8cbc-298b132d5381",
-
     "2bf4396a-c63b-425d-b772-27c9691ada1f",
     "e83f088d-1d96-4ff8-b4d0-0eb35dcac720",
     "ad6789b9-b75c-43ac-8df7-14047fd376a2",
@@ -168,10 +157,8 @@ let rowIds = [
 ]
 
 function getTincapheData() {
-    // let token2 = generatedToken
     let token = generatedTokenForAuthenticate
     api.defaults.headers['User-Agent'] = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36';
-    const authToken = 'ypblh8z-ejgFJ45pGqrlPyPWMcSeToZ5J6Deolg7EqXZdNtJMrXF55vLBHveiDmakNNP3TLoVY2-NDl64Efwet01zRqemYu4924EUPWTqtW1AbcwOCM10wKFI0kMjlEAY6lgvxYA4kSyi_ij6OieDwyA0mle9sadbWAgbbEi9YxdVHuGM0PKwtd5YCht6kMkY_Ndtlow7F0NL3-hMFWDHnP8j70F2spRbcR3o7tWtpkKsAszgy4DdDOVjApi-qses1HyuKvu_33xF6AhmXGegrUH0wP1297K3WmciT_dP_UY9AtJru_NW6Ox4aOo11zogKMY4yJadZVGWNmxboKgp4TujFTwoJBdPr11dIHxaICngJKzqNGDWh3uHVIjwoIlAxrgBjkgVALIhpq11QI1bcHFJRZvSRr1a__UOQ_6mCXI9DrHJeXNfD-4yD6S41XpiBmh0MYxFHEmjauB7UNkhCCqD2S4M2hFXPlP4l9raP9MDHh3PPnhAG9EDdx5dgvTmU5rOPb3liEPRMwxmu9GwxJwC2pIMf6-qrrlnCEjz0tOrbbe8ZqIL6RxLKjuhYNDFviRVCFqz0QekTo8EAmPGP8eRdQqDbM-2keRa-KAcHh9haCDFGWpqhf3_CjnQYp5ov81tWsMFG2VqK3AghWyaw';
     api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
     api.post(endpoint)
         .then(response => {
@@ -192,7 +179,7 @@ function getTincapheData() {
                         createdBy: 1,
                         createdOn: new Date(),
                         updatedBy: 1,
-                        updatedDtms: "2023-07-08T06:41:51.810Z",
+                        updatedDtms: new Date(),
                         idMarket: 1,
                         contractName: robustaNameList[ittirationForRobusta],
                         lastChng: parseInt(targetedObject.vs[1]),
@@ -204,7 +191,8 @@ function getTincapheData() {
                         lowRate: typeof targetedObject.vs[7] == "string" ? parseInt(targetedObject.vs[7].replace(",", "")) : targetedObject.vs[7],
                         lowRateCurrency: 0,
                         openRate: typeof targetedObject.vs[8] == "string" ? parseInt(targetedObject.vs[8].replace(",", "")) : targetedObject.vs[8],
-                        prevRate: typeof targetedObject.vs[9] == "string" ? parseInt(targetedObject.vs[9].replace(",", "")) : targetedObject.vs[9],
+                        // prevRate: typeof targetedObject.vs[9] == "string" ? parseInt(targetedObject.vs[9].replace(",", "")) : targetedObject.vs[9],
+                        prevRate: ((hour === 1 && minute >= 30) || (hour === 2 && minute <= 30)) ? typeof targetedObject.vs[9] == "string" ? parseInt(targetedObject.vs[9].replace(",", "")) : targetedObject.vs[9] : parseInt(targetedObject.vs[1]) - targetedObject.vs[2],
                         openInterest: targetedObject.vs[10],
                         bid: targetedObject.vs[11],
                         bsize: targetedObject.vs[12],
@@ -228,7 +216,7 @@ function getTincapheData() {
                         createdBy: 1,
                         createdOn: new Date(),
                         updatedBy: 1,
-                        updatedDtms: "2023-07-08T06:41:51.810Z",
+                        updatedDtms: new Date(),
                         idMarket: 2,
                         contractName: arabicaNameList[ittirationForArabica],
                         lastChng: parseFloat(targetedObject.vs[1]),
@@ -241,6 +229,7 @@ function getTincapheData() {
                         lowRateCurrency: 0,
                         openRate: typeof targetedObject.vs[8] == "string" ? parseInt(targetedObject.vs[8].replace(",", "")) : targetedObject.vs[8],
                         prevRate: typeof targetedObject.vs[9] == "string" ? parseInt(targetedObject.vs[9].replace(",", "")) : targetedObject.vs[9],
+                        // prevRate: preCloseArabicaGlobalArray[ittirationForArabica],
                         openInterest: targetedObject.vs[10],
                         bid: targetedObject.vs[11],
                         bsize: targetedObject.vs[12],
@@ -259,16 +248,14 @@ function getTincapheData() {
                 }
             }
             postDataToCoffeeWeb(robustaArray, arabicaArray)
-            console.log("getting data from tincaphe")
+            // console.log("getting data from tincaphe")
         })
         .catch(error => {
             console.error('Error while fetching data:', error.message);
-            // generateToken()
             Login()
         });
 }
 
-let localAuthToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjIxNDc0ODM2NDYiLCJuYmYiOjE2ODk2NTk3NDMsImV4cCI6MTY5MDI2NDU0MywiaWF0IjoxNjg5NjU5NzQzfQ.Pa7qAUSF5U2a1SVn5M60CP-RtxkyvofER3cVBbjVSJM"
 function postDataToCoffeeWeb(robustaArray, arabicaArray) {
     let data = robustaArray.concat(arabicaArray);
     robustaGlobalArray = robustaArray
@@ -293,7 +280,6 @@ function postDataToCoffeeWeb(robustaArray, arabicaArray) {
         })
         .then(result => {
             console.log("done")
-            // console.log(result);
         })
         .catch(error => {
             console.error("error", error);
