@@ -142,7 +142,15 @@ function myFunction() {
 
 const currentTime = new Date();
 const hour = currentTime.getHours();
+console.log(hour)
 const minute = currentTime.getMinutes();
+console.log(((hour === 13 && minute >= 30) || (hour === 22 && minute <= 30)))
+
+if ((hour === 13 && minute >= 30) || (hour > 13 && hour < 22) || (hour === 22 && minute <= 30)) {
+    console.log(true);
+  } else {
+    console.log("The current time is not between 1:30 PM and 10:30 PM.");
+  }
 
 let rowIds = [
     "89ee81a5-a680-4207-ad25-6547d2ac9339",
@@ -193,7 +201,7 @@ function getTincapheData() {
                         openRate: typeof targetedObject.vs[8] == "string" ? parseInt(targetedObject.vs[8].replace(",", "")) : targetedObject.vs[8],
                         // prevRate: typeof targetedObject.vs[9] == "string" ? parseInt(targetedObject.vs[9].replace(",", "")) : targetedObject.vs[9],
                         // prevRate: ((hour === 1 && minute >= 30) || (hour === 10 && minute <= 30)) ? typeof targetedObject.vs[9] == "string" ? parseInt(targetedObject.vs[9].replace(",", "")) : targetedObject.vs[9] : parseInt(targetedObject.vs[1]) - targetedObject.vs[2],
-                        prevRate: ((hour === 13 && minute >= 30) || (hour === 22 && minute <= 30)) ? typeof targetedObject.vs[9] == "string" ? parseInt(targetedObject.vs[9].replace(",", "")) : targetedObject.vs[9] : parseInt(targetedObject.vs[1]) - targetedObject.vs[2],
+                        prevRate: ((hour === 13 && minute >= 30) || (hour > 13 && hour < 22) || (hour === 22 && minute <= 30)) ? typeof targetedObject.vs[9] == "string" ? parseInt(targetedObject.vs[9].replace(",", "")) : targetedObject.vs[9] : parseInt(targetedObject.vs[1]) - targetedObject.vs[2],
                         openInterest: targetedObject.vs[10],
                         bid: targetedObject.vs[11],
                         bsize: targetedObject.vs[12],
@@ -230,7 +238,7 @@ function getTincapheData() {
                         lowRateCurrency: 0,
                         openRate: typeof targetedObject.vs[8] == "string" ? parseInt(targetedObject.vs[8].replace(",", "")) : targetedObject.vs[8],
                         prevRate: typeof targetedObject.vs[9] == "string" ? parseInt(targetedObject.vs[9].replace(",", "")) : targetedObject.vs[9],
-                        prevRate: ((hour === 13 && minute >= 45) || (hour === 22 && minute <= 45)) ? typeof targetedObject.vs[9] == "string" ? parseInt(targetedObject.vs[9].replace(",", "")) : targetedObject.vs[9] : parseInt(targetedObject.vs[1]) - targetedObject.vs[2],
+                        prevRate: ((hour === 13 && minute >= 45) || (hour > 13 && hour < 22) || (hour === 22 && minute <= 45)) ? typeof targetedObject.vs[9] == "string" ? parseInt(targetedObject.vs[9].replace(",", "")) : targetedObject.vs[9] : parseInt(targetedObject.vs[1]) - targetedObject.vs[2],
                         openInterest: targetedObject.vs[10],
                         bid: targetedObject.vs[11],
                         bsize: targetedObject.vs[12],
