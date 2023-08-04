@@ -148,9 +148,9 @@ console.log(((hour === 13 && minute >= 30) || (hour === 22 && minute <= 30)))
 
 if ((hour === 13 && minute >= 45) || (hour > 13 && hour < 22) || (hour === 22 && minute <= 45)) {
     console.log(true);
-  } else {
+} else {
     console.log("The current time is not between 1:30 PM and 10:30 PM.");
-  }
+}
 
 let rowIds = [
     "89ee81a5-a680-4207-ad25-6547d2ac9339",
@@ -178,8 +178,42 @@ function getTincapheData() {
             let ittirationForRobusta = 0
             let ittirationForArabica = 0
             let ittirationForXE = 0
+
             for (let i = 0; i < rowIds.length; i++) {
                 let targetedObject = response.data.result.find((ele) => rowIds[i] === ele.id)
+                let preCloseActualValue = () => {
+                    if ((hour === 13 && minute >= 30) || (hour > 13 && hour < 22) || (hour === 22 && minute <= 30)) {
+                        let preClose;
+                        if (typeof targetedObject.vs[9] == "string") {
+                            preClose = parseInt(targetedObject.vs[9].replace(",", ""))
+                        } else {
+                            preClose = targetedObject.vs[9]
+                        }
+                        return preClose
+                    }
+                    else {
+                        let preClose;
+                        if (typeof targetedObject.vs[1] == "string" && typeof targetedObject.vs[2] == "string") {
+                            preClose = parseInt(targetedObject.vs[1].replace(",", "")) - parseInt(targetedObject.vs[2].replace(",", ""))
+                        } else {
+                            preClose = targetedObject.vs[1] - targetedObject.vs[2]
+                        }
+                        return preClose
+                    }
+                }
+                let optionExpiryStatusFnc = () => {
+                    const targetDate = new Date(optionExpiryForRobusta[ittirationForRobusta]);
+                    const currentDate = new Date();
+                    const timeDifference = targetDate - currentDate;
+                    const differenceInDays = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+                    if (differenceInDays <= 15) {
+                        return "boldAndRed"
+                    }
+                    else if ((targetDate > currentDate) && (differenceInDays < 2)) {
+                        return "recentlyExpired"
+                    }
+
+                }
                 if (i <= 4) {
                     const object = {
                         isHighlight: 0,
@@ -199,16 +233,16 @@ function getTincapheData() {
                         lowRate: typeof targetedObject.vs[7] == "string" ? parseInt(targetedObject.vs[7].replace(",", "")) : targetedObject.vs[7],
                         lowRateCurrency: 0,
                         openRate: typeof targetedObject.vs[8] == "string" ? parseInt(targetedObject.vs[8].replace(",", "")) : targetedObject.vs[8],
-                        // prevRate: typeof targetedObject.vs[9] == "string" ? parseInt(targetedObject.vs[9].replace(",", "")) : targetedObject.vs[9],
-                        // prevRate: ((hour === 1 && minute >= 30) || (hour === 10 && minute <= 30)) ? typeof targetedObject.vs[9] == "string" ? parseInt(targetedObject.vs[9].replace(",", "")) : targetedObject.vs[9] : parseInt(targetedObject.vs[1]) - targetedObject.vs[2],
-                        prevRate: ((hour === 13 && minute >= 30) || (hour > 13 && hour < 22) || (hour === 22 && minute <= 30)) ? targetedObject.vs[9] : targetedObject.vs[1] - targetedObject.vs[2],
+                        prevRate: preCloseActualValue(),
                         openInterest: targetedObject.vs[10],
                         bid: targetedObject.vs[11],
                         bsize: targetedObject.vs[12],
                         ask: targetedObject.vs[13],
                         asize: targetedObject.vs[14],
                         optionExpiry: optionExpiryForRobusta[ittirationForRobusta],
+                        optionExpiryStatus: optionExpiryStatusFnc(),
                         firstNoticeDate: firstNoticeDateForRobusta[ittirationForRobusta],
+                        firstNoticeDateStatus: optionExpiryStatusFnc(),
                         highCurrency: 0,
                         lowCurrency: 0,
                         marketName: robustaNameList[ittirationForRobusta],
@@ -237,15 +271,16 @@ function getTincapheData() {
                         lowRate: typeof targetedObject.vs[7] == "string" ? parseInt(targetedObject.vs[7].replace(",", "")) : targetedObject.vs[7],
                         lowRateCurrency: 0,
                         openRate: typeof targetedObject.vs[8] == "string" ? parseInt(targetedObject.vs[8].replace(",", "")) : targetedObject.vs[8],
-                        prevRate: typeof targetedObject.vs[9] == "string" ? parseInt(targetedObject.vs[9].replace(",", "")) : targetedObject.vs[9],
-                        prevRate: ((hour === 13 && minute >= 45) || (hour > 13 && hour < 22) || (hour === 22 && minute <= 45)) ? targetedObject.vs[9] : targetedObject.vs[1] - targetedObject.vs[2],
+                        prevRate: preCloseActualValue(),
                         openInterest: targetedObject.vs[10],
                         bid: targetedObject.vs[11],
                         bsize: targetedObject.vs[12],
                         ask: targetedObject.vs[13],
                         asize: targetedObject.vs[14],
                         optionExpiry: optionExpiryForArabica[ittirationForArabica],
+                        optionExpiryStatus: optionExpiryStatusFnc(),
                         firstNoticeDate: firstNoticeDateForArabica[ittirationForArabica],
+                        firstNoticeDateStatus: optionExpiryStatusFnc(),
                         highCurrency: 0,
                         lowCurrency: 0,
                         marketName: arabicaNameList[ittirationForArabica],
@@ -281,7 +316,6 @@ function postDataToCoffeeWeb(robustaArray, arabicaArray) {
         body: JSON.stringify(data)
     })
         .then(response => {
-            // console.log("done")
             if (!response.ok) {
                 throw new Error('Request failed with status ' + response.status);
             }
