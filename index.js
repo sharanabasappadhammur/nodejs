@@ -113,9 +113,6 @@ setInterval(() => {
     Logout()
 }, 3600000)
 
-// let timeStamp = new Date()
-// console.log(timeStamp)
-
 setInterval(() => {
     getTincapheData()
 }, 1000);
@@ -134,23 +131,9 @@ function myFunction() {
     console.log("This function runs daily at 1:29:50 PM!");
 }
 
-// Schedule the function to run daily at 12:25 PM
-// cron.schedule('50 29 13 * * *', myFunction);
-//   cron.schedule('sec min hr * * *', myFunction);
-
-// cron.schedule('*/1 * * * *', myFunction);
-
 const currentTime = new Date();
 const hour = currentTime.getHours();
-console.log(hour)
 const minute = currentTime.getMinutes();
-console.log(((hour === 13 && minute >= 30) || (hour === 22 && minute <= 30)))
-
-if ((hour === 13 && minute >= 45) || (hour > 13 && hour < 22) || (hour === 22 && minute <= 45)) {
-    console.log(true);
-} else {
-    console.log("The current time is not between 1:30 PM and 10:30 PM.");
-}
 
 let rowIds = [
     "89ee81a5-a680-4207-ad25-6547d2ac9339",
@@ -183,12 +166,14 @@ function getTincapheData() {
                 let targetedObject = response.data.result.find((ele) => rowIds[i] === ele.id)
                 let preCloseActualValue = () => {
                     if ((hour === 13 && minute >= 30) || (hour > 13 && hour < 22) || (hour === 22 && minute <= 30)) {
+                        console.log("...........")
                         let preClose;
                         if (typeof targetedObject.vs[9] == "string") {
                             preClose = parseInt(targetedObject.vs[9].replace(",", ""))
                         } else {
                             preClose = targetedObject.vs[9]
                         }
+                        console.log("preClose",preClose)
                         return preClose
                     }
                     else {
