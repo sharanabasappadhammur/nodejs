@@ -134,7 +134,7 @@ function myFunction() {
 const currentTime = new Date();
 const hour = currentTime.getHours();
 const minute = currentTime.getMinutes();
-console.log("currentsss",(hour === 13 && minute >= 45) || (hour > 13 && hour < 22) || (hour === 22 && minute <= 45))
+console.log("currentsss", (hour === 13 && minute >= 45) || (hour > 13 && hour < 22) || (hour === 22 && minute <= 45))
 
 
 let rowIds = [
@@ -165,6 +165,9 @@ function getTincapheData() {
             let ittirationForXE = 0
 
             for (let i = 0; i < rowIds.length; i++) {
+                console.log("currentTime", currentTime)
+                console.log("hour", currentTime)
+                console.log("minute", currentTime)
                 let targetedObject = response.data.result.find((ele) => rowIds[i] === ele.id)
                 let preCloseActualValueForRubusta = () => {
                     if ((hour === 13 && minute >= 30) || (hour > 13 && hour < 22) || (hour === 22 && minute <= 30)) {
@@ -175,7 +178,7 @@ function getTincapheData() {
                         } else {
                             preClose = targetedObject.vs[9]
                         }
-                        console.log("preClose",preClose)
+                        console.log("preClose", preClose)
                         return preClose
                     }
                     else {
@@ -197,7 +200,7 @@ function getTincapheData() {
                         } else {
                             preClose = targetedObject.vs[9]
                         }
-                        console.log("preClose",preClose)
+                        console.log("preClose", preClose)
                         return preClose
                     }
                     else {
