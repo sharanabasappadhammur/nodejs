@@ -166,8 +166,8 @@ function getTincapheData() {
 
             for (let i = 0; i < rowIds.length; i++) {
                 console.log("currentTime", currentTime)
-                console.log("hour", currentTime)
-                console.log("minute", currentTime)
+                console.log("hour", currentTime.getHours())
+                console.log("minute", currentTime.getMinutes())
                 let targetedObject = response.data.result.find((ele) => rowIds[i] === ele.id)
                 let preCloseActualValueForRubusta = () => {
                     if ((hour === 13 && minute >= 30) || (hour > 13 && hour < 22) || (hour === 22 && minute <= 30)) {
