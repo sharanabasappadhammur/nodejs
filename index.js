@@ -134,6 +134,8 @@ function myFunction() {
 const currentTime = new Date();
 const hour = currentTime.getHours();
 const minute = currentTime.getMinutes();
+console.log("currentsss",(hour === 13 && minute >= 45) || (hour > 13 && hour < 22) || (hour === 22 && minute <= 45))
+
 
 let rowIds = [
     "89ee81a5-a680-4207-ad25-6547d2ac9339",
