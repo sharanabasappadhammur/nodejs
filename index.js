@@ -195,7 +195,10 @@ function getTincapheData() {
                     }
                 }
                 let firstNoticeDayStatusForRubusta = () => {
-                    if ((currentDate > targetDateForOERForRobusta) && (currentDate > targetDateFNRForRobusta)) {
+                    // if ((currentDate > targetDateForOERForRobusta) && (currentDate > targetDateFNRForRobusta)) {
+                    //     return "boldAndBlack"
+                    // }
+                    if ((currentDate > targetDateForOERForRobusta) && (currentDate < targetDateFNRForRobusta)) {
                         return "boldAndBlack"
                     }
                 }
