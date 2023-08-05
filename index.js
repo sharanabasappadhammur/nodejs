@@ -29,16 +29,26 @@ let arabicaNameList = [
     "KCK-23 (MAY 24)"
 ]
 let optionExpiryForRobusta = [
-    "16-AUG-2023",
-    "19-OCT-2023",
-    "21-DEC-2023",
+    // "16-AUG-2023",
+    // "19-OCT-2023",
+    // "21-DEC-2023",
+    // "15-FEB-2024",
+    // "19-APR-2024"
+    "13-AUG-2023",
+    "03-AUG-2023",
+    "01-AUG-2023",
     "15-FEB-2024",
     "19-APR-2024"
 ]
 let firstNoticeDateForRobusta = [
+    // "25-AUG-2023",
+    // "26-OCT-2023",
+    // "23-DEC-2023",
+    // "23-FEB-2024",
+    // "25-APR-2024"
     "25-AUG-2023",
     "26-OCT-2023",
-    "23-DEC-2023",
+    "03-AUG-2023",
     "23-FEB-2024",
     "25-APR-2024"
 ]
@@ -134,7 +144,7 @@ function myFunction() {
 const currentTime = new Date();
 const hour = currentTime.getHours();
 const minute = currentTime.getMinutes();
-console.log("currentsss", (hour === 13 && minute >= 45) || (hour > 13 && hour < 22) || (hour === 22 && minute <= 45))
+// console.log("currentsss", (hour === 13 && minute >= 45) || (hour > 13 && hour < 22) || (hour === 22 && minute <= 45))
 
 
 let rowIds = [
@@ -166,18 +176,42 @@ function getTincapheData() {
 
             for (let i = 0; i < rowIds.length; i++) {
                 let targetedObject = response.data.result.find((ele) => rowIds[i] === ele.id)
-                let optionExpiryStatusFnc = () => {
-                    const targetDate = new Date(optionExpiryForRobusta[ittirationForRobusta]);
-                    const currentDate = new Date();
-                    const timeDifference = targetDate - currentDate;
-                    const differenceInDays = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
-                    if (differenceInDays <= 15) {
+
+                const targetDateForOERForRobusta = new Date(optionExpiryForRobusta[ittirationForRobusta]);
+                const targetDateFNRForRobusta = new Date(firstNoticeDateForRobusta[ittirationForRobusta]);
+                const targetDateForOERForArabica = new Date(optionExpiryForRobusta[ittirationForRobusta]);
+                const targetDateFNRForArabica = new Date(firstNoticeDateForRobusta[ittirationForRobusta]);
+                const currentDate = new Date();
+                const timeDifference = targetDateForOERForRobusta - currentDate;
+                const differenceInDays = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+
+                let optionExpiryStatusForRubusta = () => {
+                    if (differenceInDays <= 10 && differenceInDays > 0) {
                         return "boldAndRed"
                     }
-                    else if ((targetDate > currentDate) && (differenceInDays < 2)) {
-                        return "recentlyExpired"
+
+                    else if ((currentDate > targetDateForOERForRobusta) && (currentDate < targetDateFNRForRobusta)) {
+                        return "expired"
+                    }
+                }
+                let firstNoticeDayStatusForRubusta = () => {
+                    if ((currentDate > targetDateForOERForRobusta) && (currentDate > targetDateFNRForRobusta)) {
+                        return "boldAndBlack"
+                    }
+                }
+                let optionExpiryStatusForArabica = () => {
+                    if (differenceInDays <= 10 && differenceInDays > 0) {
+                        return "boldAndRed"
                     }
 
+                    else if ((currentDate > targetDateForOERForArabica) && (currentDate < targetDateFNRForArabica)) {
+                        return "expired"
+                    }
+                }
+                let firstNoticeDayStatusForArabica = () => {
+                    if ((currentDate > targetDateForOERForArabica) && (currentDate > targetDateFNRForArabica)) {
+                        return "boldAndBlack"
+                    }
                 }
                 if (i <= 4) {
                     const object = {
@@ -205,9 +239,9 @@ function getTincapheData() {
                         ask: targetedObject.vs[13],
                         asize: targetedObject.vs[14],
                         optionExpiry: optionExpiryForRobusta[ittirationForRobusta],
-                        optionExpiryStatus: optionExpiryStatusFnc(),
+                        optionExpiryStatus: optionExpiryStatusForRubusta(),
                         firstNoticeDate: firstNoticeDateForRobusta[ittirationForRobusta],
-                        firstNoticeDateStatus: optionExpiryStatusFnc(),
+                        firstNoticeDateStatus: firstNoticeDayStatusForRubusta(),
                         highCurrency: 0,
                         lowCurrency: 0,
                         marketName: robustaNameList[ittirationForRobusta],
@@ -243,9 +277,9 @@ function getTincapheData() {
                         ask: targetedObject.vs[13],
                         asize: targetedObject.vs[14],
                         optionExpiry: optionExpiryForArabica[ittirationForArabica],
-                        optionExpiryStatus: optionExpiryStatusFnc(),
+                        optionExpiryStatus: optionExpiryStatusForArabica(),
                         firstNoticeDate: firstNoticeDateForArabica[ittirationForArabica],
-                        firstNoticeDateStatus: optionExpiryStatusFnc(),
+                        firstNoticeDateStatus: firstNoticeDayStatusForArabica(),
                         highCurrency: 0,
                         lowCurrency: 0,
                         marketName: arabicaNameList[ittirationForArabica],
