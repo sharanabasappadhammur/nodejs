@@ -165,54 +165,7 @@ function getTincapheData() {
             let ittirationForXE = 0
 
             for (let i = 0; i < rowIds.length; i++) {
-                console.log("currentTime", currentTime)
-                console.log("hour", currentTime.getHours())
-                console.log("minute", currentTime.getMinutes())
                 let targetedObject = response.data.result.find((ele) => rowIds[i] === ele.id)
-                let preCloseActualValueForRubusta = () => {
-                    if ((hour === 13 && minute >= 30) || (hour > 13 && hour < 22) || (hour === 22 && minute <= 30)) {
-                        console.log("...........")
-                        let preClose;
-                        if (typeof targetedObject.vs[9] == "string") {
-                            preClose = parseInt(targetedObject.vs[9].replace(",", ""))
-                        } else {
-                            preClose = targetedObject.vs[9]
-                        }
-                        console.log("preClose", preClose)
-                        return preClose
-                    }
-                    else {
-                        let preClose;
-                        if (typeof targetedObject.vs[1] == "string" && typeof targetedObject.vs[2] == "string") {
-                            preClose = parseInt(targetedObject.vs[1].replace(",", "")) - parseInt(targetedObject.vs[2].replace(",", ""))
-                        } else {
-                            preClose = targetedObject.vs[1] - targetedObject.vs[2]
-                        }
-                        return preClose
-                    }
-                }
-                let preCloseActualValueForArabica = () => {
-                    if ((hour === 13 && minute >= 45) || (hour > 13 && hour < 22) || (hour === 22 && minute <= 45)) {
-                        console.log("...........")
-                        let preClose;
-                        if (typeof targetedObject.vs[9] == "string") {
-                            preClose = parseInt(targetedObject.vs[9].replace(",", ""))
-                        } else {
-                            preClose = targetedObject.vs[9]
-                        }
-                        console.log("preClose", preClose)
-                        return preClose
-                    }
-                    else {
-                        let preClose;
-                        if (typeof targetedObject.vs[1] == "string" && typeof targetedObject.vs[2] == "string") {
-                            preClose = parseInt(targetedObject.vs[1].replace(",", "")) - parseInt(targetedObject.vs[2].replace(",", ""))
-                        } else {
-                            preClose = targetedObject.vs[1] - targetedObject.vs[2]
-                        }
-                        return preClose
-                    }
-                }
                 let optionExpiryStatusFnc = () => {
                     const targetDate = new Date(optionExpiryForRobusta[ittirationForRobusta]);
                     const currentDate = new Date();
@@ -245,7 +198,7 @@ function getTincapheData() {
                         lowRate: typeof targetedObject.vs[7] == "string" ? parseInt(targetedObject.vs[7].replace(",", "")) : targetedObject.vs[7],
                         lowRateCurrency: 0,
                         openRate: typeof targetedObject.vs[8] == "string" ? parseInt(targetedObject.vs[8].replace(",", "")) : targetedObject.vs[8],
-                        prevRate: preCloseActualValueForRubusta(),
+                        prevRate: typeof targetedObject.vs[9] == "string" ? parseInt(targetedObject.vs[9].replace(",", "")) : targetedObject.vs[9],
                         openInterest: targetedObject.vs[10],
                         bid: targetedObject.vs[11],
                         bsize: targetedObject.vs[12],
@@ -283,7 +236,7 @@ function getTincapheData() {
                         lowRate: typeof targetedObject.vs[7] == "string" ? parseInt(targetedObject.vs[7].replace(",", "")) : targetedObject.vs[7],
                         lowRateCurrency: 0,
                         openRate: typeof targetedObject.vs[8] == "string" ? parseInt(targetedObject.vs[8].replace(",", "")) : targetedObject.vs[8],
-                        prevRate: preCloseActualValueForArabica(),
+                        prevRate: typeof targetedObject.vs[9] == "string" ? parseInt(targetedObject.vs[9].replace(",", "")) : targetedObject.vs[9],
                         openInterest: targetedObject.vs[10],
                         bid: targetedObject.vs[11],
                         bsize: targetedObject.vs[12],
