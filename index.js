@@ -195,10 +195,10 @@ function getTincapheData() {
                     }
                 }
                 let firstNoticeDayStatusForRubusta = () => {
-                    // if ((currentDate > targetDateForOERForRobusta) && (currentDate > targetDateFNRForRobusta)) {
-                    //     return "boldAndBlack"
-                    // }
-                    if ((currentDate > targetDateForOERForRobusta) && (currentDate < targetDateFNRForRobusta)) {
+                    if ((currentDate > targetDateForOERForRobusta) && (currentDate < targetDateFNRForRobusta) || differenceInDays <= 10 && differenceInDays > 0) {
+                        return "boldAndBlack"
+                    }
+                    else if(differenceInDays <= 10 && differenceInDays > 0){
                         return "boldAndBlack"
                     }
                 }
@@ -212,7 +212,10 @@ function getTincapheData() {
                     }
                 }
                 let firstNoticeDayStatusForArabica = () => {
-                    if ((currentDate > targetDateForOERForArabica) && (currentDate > targetDateFNRForArabica)) {
+                    if ((currentDate > targetDateForOERForArabica) && (currentDate < targetDateFNRForArabica) || differenceInDays <= 10 && differenceInDays > 0) {
+                        return "boldAndBlack"
+                    }
+                    else if(differenceInDays <= 10 && differenceInDays > 0){
                         return "boldAndBlack"
                     }
                 }
