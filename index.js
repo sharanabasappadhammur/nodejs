@@ -123,9 +123,9 @@ setInterval(() => {
     Logout()
 }, 3600000)
 
-setInterval(() => {
-    getTincapheData()
-}, 1000);
+// setInterval(() => {
+//     getTincapheData()
+// }, 1000);
 
 let robustaGlobalArray = []
 let arabicaGlobalArray = []
@@ -159,6 +159,8 @@ let rowIds = [
     "c06c6ac6-70e7-4aa5-80b9-622ae8c6f8ae",
 ]
 
+const currentDate = new Date();
+
 function getTincapheData() {
     let token = generatedTokenForAuthenticate
     api.defaults.headers['User-Agent'] = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36';
@@ -179,14 +181,16 @@ function getTincapheData() {
 
                 const targetDateForOERForRobusta = new Date(optionExpiryForRobusta[ittirationForRobusta]);
                 const targetDateFNRForRobusta = new Date(firstNoticeDateForRobusta[ittirationForRobusta]);
-                const targetDateForOERForArabica = new Date(optionExpiryForRobusta[ittirationForRobusta]);
-                const targetDateFNRForArabica = new Date(firstNoticeDateForRobusta[ittirationForRobusta]);
+                const targetDateForOERForArabica = new Date(optionExpiryForRobusta[ittirationForArabica]);
+                const targetDateFNRForArabica = new Date(firstNoticeDateForRobusta[ittirationForArabica]);
                 const currentDate = new Date();
-                const timeDifference = targetDateForOERForRobusta - currentDate;
-                const differenceInDays = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+                const timeDifferenceForRobusta = targetDateForOERForRobusta - currentDate;
+                const timeDifferenceForArabica = targetDateForOERForRobusta - currentDate;
+                const differenceInDaysForRobusta = Math.floor(timeDifferenceForRobusta / (1000 * 60 * 60 * 24));
+                const differenceInDaysForArabica = Math.floor(timeDifferenceForArabica / (1000 * 60 * 60 * 24));
 
                 let optionExpiryStatusForRubusta = () => {
-                    if (differenceInDays <= 10 && differenceInDays > 0) {
+                    if (differenceInDaysForRobusta <= 10 && differenceInDaysForRobusta > 0) {
                         return "boldAndRed"
                     }
 
@@ -195,15 +199,15 @@ function getTincapheData() {
                     }
                 }
                 let firstNoticeDayStatusForRubusta = () => {
-                    if ((currentDate > targetDateForOERForRobusta) && (currentDate < targetDateFNRForRobusta) || differenceInDays <= 10 && differenceInDays > 0) {
+                    if ((currentDate > targetDateForOERForRobusta) && (currentDate < targetDateFNRForRobusta) || differenceInDaysForRobusta <= 10 && differenceInDaysForRobusta > 0) {
                         return "boldAndBlack"
                     }
-                    else if(differenceInDays <= 10 && differenceInDays > 0){
+                    else if(differenceInDaysForRobusta <= 10 && differenceInDaysForRobusta > 0){
                         return "boldAndBlack"
                     }
                 }
                 let optionExpiryStatusForArabica = () => {
-                    if (differenceInDays <= 10 && differenceInDays > 0) {
+                    if (differenceInDaysForArabica <= 10 && differenceInDaysForArabica > 0) {
                         return "boldAndRed"
                     }
 
@@ -212,10 +216,10 @@ function getTincapheData() {
                     }
                 }
                 let firstNoticeDayStatusForArabica = () => {
-                    if ((currentDate > targetDateForOERForArabica) && (currentDate < targetDateFNRForArabica) || differenceInDays <= 10 && differenceInDays > 0) {
+                    if ((currentDate > targetDateForOERForArabica) && (currentDate < targetDateFNRForArabica) || differenceInDaysForArabica <= 10 && differenceInDaysForArabica > 0) {
                         return "boldAndBlack"
                     }
-                    else if(differenceInDays <= 10 && differenceInDays > 0){
+                    else if(differenceInDaysForArabica <= 10 && differenceInDaysForArabica > 0){
                         return "boldAndBlack"
                     }
                 }
