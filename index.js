@@ -255,7 +255,7 @@ function getTincapheData() {
                     const targetDateForOERForArabica = new Date(optionExpiryForArabica[ittirationForArabica]);
                     const targetDateFNRForArabica = new Date(firstNoticeDateForArabica[ittirationForArabica]);
                     const currentDate = new Date();
-                    const timeDifferenceForArabica = targetDateForOERForRobusta - currentDate;
+                    const timeDifferenceForArabica = targetDateForOERForArabica - currentDate;
                     const differenceInDaysForArabica = Math.floor(timeDifferenceForArabica / (1000 * 60 * 60 * 24));
                     let optionExpiryStatusForArabica = () => {
                         if (differenceInDaysForArabica <= 10 && differenceInDaysForArabica > 0) {
