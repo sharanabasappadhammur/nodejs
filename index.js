@@ -53,7 +53,7 @@ let firstNoticeDateForRobusta = [
     // "25-APR-2024"
 ]
 let optionExpiryForArabica = [
-    "11-AUG-2023",
+    "16-AUG-2023",
     "11-NOV-2023",
     "10-FEB-2024",
     "13-APR-2024",
