@@ -252,9 +252,8 @@ function getTincapheData() {
                     ittirationForRobusta += 1
                 }
                 else {
-
-                    const targetDateForOERForArabica = new Date(optionExpiryForRobusta[ittirationForArabica]);
-                    const targetDateFNRForArabica = new Date(firstNoticeDateForRobusta[ittirationForArabica]);
+                    const targetDateForOERForArabica = new Date(optionExpiryForArabica[ittirationForArabica]);
+                    const targetDateFNRForArabica = new Date(firstNoticeDateForArabica[ittirationForArabica]);
                     const currentDate = new Date();
                     const timeDifferenceForArabica = targetDateForOERForRobusta - currentDate;
                     const differenceInDaysForArabica = Math.floor(timeDifferenceForArabica / (1000 * 60 * 60 * 24));
