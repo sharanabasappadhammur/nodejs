@@ -123,9 +123,9 @@ setInterval(() => {
     Logout()
 }, 3600000)
 
-// setInterval(() => {
-//     getTincapheData()
-// }, 1000);
+setInterval(() => {
+    getTincapheData()
+}, 1000);
 
 let robustaGlobalArray = []
 let arabicaGlobalArray = []
