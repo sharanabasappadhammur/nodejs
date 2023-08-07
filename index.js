@@ -189,41 +189,31 @@ function getTincapheData() {
                 const differenceInDaysForRobusta = Math.floor(timeDifferenceForRobusta / (1000 * 60 * 60 * 24));
                 const differenceInDaysForArabica = Math.floor(timeDifferenceForArabica / (1000 * 60 * 60 * 24));
 
-                let optionExpiryStatusForRubusta = () => {
-                    if (differenceInDaysForRobusta <= 10 && differenceInDaysForRobusta > 0) {
-                        return "boldAndRed"
-                    }
 
-                    else if ((currentDate > targetDateForOERForRobusta) && (currentDate < targetDateFNRForRobusta)) {
-                        return "expired"
-                    }
-                }
-                let firstNoticeDayStatusForRubusta = () => {
-                    if ((currentDate > targetDateForOERForRobusta) && (currentDate < targetDateFNRForRobusta) || differenceInDaysForRobusta <= 10 && differenceInDaysForRobusta > 0) {
-                        return "boldAndBlack"
-                    }
-                    else if(differenceInDaysForRobusta <= 10 && differenceInDaysForRobusta > 0){
-                        return "boldAndBlack"
-                    }
-                }
-                let optionExpiryStatusForArabica = () => {
-                    if (differenceInDaysForArabica <= 10 && differenceInDaysForArabica > 0) {
-                        return "boldAndRed"
-                    }
 
-                    else if ((currentDate > targetDateForOERForArabica) && (currentDate < targetDateFNRForArabica)) {
-                        return "expired"
-                    }
-                }
-                let firstNoticeDayStatusForArabica = () => {
-                    if ((currentDate > targetDateForOERForArabica) && (currentDate < targetDateFNRForArabica) || differenceInDaysForArabica <= 10 && differenceInDaysForArabica > 0) {
-                        return "boldAndBlack"
-                    }
-                    else if(differenceInDaysForArabica <= 10 && differenceInDaysForArabica > 0){
-                        return "boldAndBlack"
-                    }
-                }
                 if (i <= 4) {
+                    const targetDateForOERForRobusta = new Date(optionExpiryForRobusta[ittirationForRobusta]);
+                    const targetDateFNRForRobusta = new Date(firstNoticeDateForRobusta[ittirationForRobusta]);
+                    const currentDate = new Date();
+                    const timeDifferenceForRobusta = targetDateForOERForRobusta - currentDate;
+                    const differenceInDaysForRobusta = Math.floor(timeDifferenceForRobusta / (1000 * 60 * 60 * 24));
+                    let optionExpiryStatusForRubusta = () => {
+                        if (differenceInDaysForRobusta <= 10 && differenceInDaysForRobusta > 0) {
+                            return "boldAndRed"
+                        }
+
+                        else if ((currentDate > targetDateForOERForRobusta) && (currentDate < targetDateFNRForRobusta)) {
+                            return "expired"
+                        }
+                    }
+                    let firstNoticeDayStatusForRubusta = () => {
+                        if ((currentDate > targetDateForOERForRobusta) && (currentDate < targetDateFNRForRobusta) || differenceInDaysForRobusta <= 10 && differenceInDaysForRobusta > 0) {
+                            return "boldAndBlack"
+                        }
+                        else if (differenceInDaysForRobusta <= 10 && differenceInDaysForRobusta > 0) {
+                            return "boldAndBlack"
+                        }
+                    }
                     const object = {
                         isHighlight: 0,
                         id: ittirationForRobusta,
@@ -262,6 +252,29 @@ function getTincapheData() {
                     ittirationForRobusta += 1
                 }
                 else {
+
+                    const targetDateForOERForArabica = new Date(optionExpiryForRobusta[ittirationForArabica]);
+                    const targetDateFNRForArabica = new Date(firstNoticeDateForRobusta[ittirationForArabica]);
+                    const currentDate = new Date();
+                    const timeDifferenceForArabica = targetDateForOERForRobusta - currentDate;
+                    const differenceInDaysForArabica = Math.floor(timeDifferenceForArabica / (1000 * 60 * 60 * 24));
+                    let optionExpiryStatusForArabica = () => {
+                        if (differenceInDaysForArabica <= 10 && differenceInDaysForArabica > 0) {
+                            return "boldAndRed"
+                        }
+
+                        else if ((currentDate > targetDateForOERForArabica) && (currentDate < targetDateFNRForArabica)) {
+                            return "expired"
+                        }
+                    }
+                    let firstNoticeDayStatusForArabica = () => {
+                        if ((currentDate > targetDateForOERForArabica) && (currentDate < targetDateFNRForArabica) || differenceInDaysForArabica <= 10 && differenceInDaysForArabica > 0) {
+                            return "boldAndBlack"
+                        }
+                        else if (differenceInDaysForArabica <= 10 && differenceInDaysForArabica > 0) {
+                            return "boldAndBlack"
+                        }
+                    }
                     const object = {
                         isHighlight: 0,
                         id: ittirationForArabica,
