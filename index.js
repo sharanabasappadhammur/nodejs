@@ -41,7 +41,7 @@ let optionExpiryForRobusta = [
     // "19-APR-2024"
 ]
 let firstNoticeDateForRobusta = [
-    "25-AUG-2023",
+    "12-AUG-2023",
     "26-OCT-2023",
     "23-DEC-2023",
     "23-FEB-2024",
