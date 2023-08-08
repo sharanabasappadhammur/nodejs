@@ -179,17 +179,15 @@ function getTincapheData() {
             for (let i = 0; i < rowIds.length; i++) {
                 let targetedObject = response.data.result.find((ele) => rowIds[i] === ele.id)
 
-                const targetDateForOERForRobusta = new Date(optionExpiryForRobusta[ittirationForRobusta]);
-                const targetDateFNRForRobusta = new Date(firstNoticeDateForRobusta[ittirationForRobusta]);
-                const targetDateForOERForArabica = new Date(optionExpiryForRobusta[ittirationForArabica]);
-                const targetDateFNRForArabica = new Date(firstNoticeDateForRobusta[ittirationForArabica]);
-                const currentDate = new Date();
-                const timeDifferenceForRobusta = targetDateForOERForRobusta - currentDate;
-                const timeDifferenceForArabica = targetDateForOERForRobusta - currentDate;
-                const differenceInDaysForRobusta = Math.floor(timeDifferenceForRobusta / (1000 * 60 * 60 * 24));
-                const differenceInDaysForArabica = Math.floor(timeDifferenceForArabica / (1000 * 60 * 60 * 24));
-
-
+                // const targetDateForOERForRobusta = new Date(optionExpiryForRobusta[ittirationForRobusta]);
+                // const targetDateFNRForRobusta = new Date(firstNoticeDateForRobusta[ittirationForRobusta]);
+                // const targetDateForOERForArabica = new Date(optionExpiryForRobusta[ittirationForArabica]);
+                // const targetDateFNRForArabica = new Date(firstNoticeDateForRobusta[ittirationForArabica]);
+                // const currentDate = new Date();
+                // const timeDifferenceForRobusta = targetDateForOERForRobusta - currentDate;
+                // const timeDifferenceForArabica = targetDateForOERForRobusta - currentDate;
+                // const differenceInDaysForRobusta = Math.floor(timeDifferenceForRobusta / (1000 * 60 * 60 * 24));
+                // const differenceInDaysForArabica = Math.floor(timeDifferenceForArabica / (1000 * 60 * 60 * 24));
 
                 if (i <= 4) {
                     const targetDateForOERForRobusta = new Date(optionExpiryForRobusta[ittirationForRobusta]);
@@ -270,8 +268,8 @@ function getTincapheData() {
                         if ((currentDate > targetDateForOERForArabica) && (currentDate < targetDateFNRForArabica) || differenceInDaysForArabica <= 10 && differenceInDaysForArabica > 0) {
                             return "boldAndBlack"
                         }
-                        else if (differenceInDaysForArabica <= 10 && differenceInDaysForArabica > 0) {
-                            return "boldAndBlack"
+                        if (differenceInDaysForArabica <= 10 && differenceInDaysForArabica > 0) {
+                            return "boldAndRed"
                         }
                     }
                     const object = {
