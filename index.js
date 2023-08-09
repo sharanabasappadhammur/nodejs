@@ -14,7 +14,6 @@ app.use(express.json())
 const cookieJar = new tough.CookieJar();
 
 let robustaNameList = [
-    // "RCN-23 (JUL 23)",
     "RCU-23 (SEP 23)",
     "RCX-23 (NOV 23)",
     "RCF-24 (JAN 24)",
@@ -22,7 +21,6 @@ let robustaNameList = [
     "RCK-24 (MAY 24)"
 ]
 let arabicaNameList = [
-    // "KCN-23 (Jul 23)",
     "KCU-23 (SEP 23)",
     "KCZ-22 (DEC 23)",
     "KCH-23 (MAR 24)",
@@ -34,11 +32,6 @@ let optionExpiryForRobusta = [
     "21-DEC-2023",
     "15-FEB-2024",
     "19-APR-2024"
-    // "13-AUG-2023",
-    // "03-AUG-2023",
-    // "01-AUG-2023",
-    // "15-FEB-2024",
-    // "19-APR-2024"
 ]
 let firstNoticeDateForRobusta = [
     "25-AUG-2023",
@@ -46,11 +39,6 @@ let firstNoticeDateForRobusta = [
     "23-DEC-2023",
     "23-FEB-2024",
     "25-APR-2024"
-    // "25-AUG-2023",
-    // "26-OCT-2023",
-    // "03-AUG-2023",
-    // "23-FEB-2024",
-    // "25-APR-2024"
 ]
 let optionExpiryForArabica = [
     "11-AUG-2023",
@@ -65,7 +53,6 @@ let firstNoticeDateForArabica = [
     "28-APR-2024",
 ]
 
-const endpoint = 'http://tincaphe.com/api/services/app/priceTableClient/GetValues';
 const api = axios.create({
     withCredentials: true,
     jar: cookieJar,
@@ -79,14 +66,6 @@ let payload = {
     tenancyName: "Default",
     rememberMe: false
 }
-// let payload = {
-//     grant_type: "password",
-//     client_id: "APP",
-//     usernameOrEmailAddress: "integrated2",
-//     password: "7979",
-//     tenancyName: "Default",
-//     rememberMe: false
-// }
 
 let localAuthToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjIxNDc0ODM2NDYiLCJuYmYiOjE2ODk2NTk3NDMsImV4cCI6MTY5MDI2NDU0MywiaWF0IjoxNjg5NjU5NzQzfQ.Pa7qAUSF5U2a1SVn5M60CP-RtxkyvofER3cVBbjVSJM"
 
@@ -135,18 +114,6 @@ let preCloseRobustaGlobalArray = []
 let preCloseArabicaGlobalArray = []
 let preCloseXeGlobalArray = []
 
-function myFunction() {
-    preCloseRobustaGlobalArray = robustaGlobalArray
-    preCloseArabicaGlobalArray = arabicaGlobalArray
-    console.log("This function runs daily at 1:29:50 PM!");
-}
-
-const currentTime = new Date();
-const hour = currentTime.getHours();
-const minute = currentTime.getMinutes();
-// console.log("currentsss", (hour === 13 && minute >= 45) || (hour > 13 && hour < 22) || (hour === 22 && minute <= 45))
-
-
 let rowIds = [
     "89ee81a5-a680-4207-ad25-6547d2ac9339",
     "a6225921-0804-4dc3-a15a-4967659abbda",
@@ -165,7 +132,7 @@ function getTincapheData() {
     let token = generatedTokenForAuthenticate
     api.defaults.headers['User-Agent'] = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36';
     api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-    api.post(endpoint)
+    api.post('http://tincaphe.com/api/services/app/priceTableClient/GetValues')
         .then(response => {
 
             let robustaArray = []
@@ -204,6 +171,7 @@ function getTincapheData() {
                             return "boldAndBlack"
                         }
                     }
+                    // console.log(typeof targetedObject.vs[7] == "string" ? parseInt(targetedObject.vs[7].replace(/[\s,]/g, "").split(" ")[1]) : targetedObject.vs[7])
                     const object = {
                         isHighlight: 0,
                         id: ittirationForRobusta,
@@ -219,7 +187,8 @@ function getTincapheData() {
                         volume: typeof targetedObject.vs[4] == "string" ? parseInt(targetedObject.vs[4].replace(",", "")) : targetedObject.vs[4],
                         highRate: typeof targetedObject.vs[6] == "string" ? parseInt(targetedObject.vs[6].replace(",", "")) : targetedObject.vs[6],
                         highRateCurrency: 0,
-                        lowRate: typeof targetedObject.vs[7] == "string" ? parseInt(targetedObject.vs[7].replace(",", "")) : targetedObject.vs[7],
+                        // lowRate: typeof targetedObject.vs[7] == "string" ? parseInt(targetedObject.vs[7].replace(",", "")) : targetedObject.vs[7],
+                        lowRate: typeof targetedObject.vs[7] == "string" ? parseInt(targetedObject.vs[7].replace(/[^\d]/g, "").slice(1)) : targetedObject.vs[7],
                         lowRateCurrency: 0,
                         openRate: typeof targetedObject.vs[8] == "string" ? parseInt(targetedObject.vs[8].replace(",", "")) : targetedObject.vs[8],
                         prevRate: typeof targetedObject.vs[9] == "string" ? parseInt(targetedObject.vs[9].replace(",", "")) : targetedObject.vs[9],
@@ -281,7 +250,8 @@ function getTincapheData() {
                         volume: typeof targetedObject.vs[4] == "string" ? parseInt(targetedObject.vs[4].replace(",", "")) : targetedObject.vs[4],
                         highRate: typeof targetedObject.vs[6] == "string" ? parseInt(targetedObject.vs[6].replace(",", "")) : targetedObject.vs[6],
                         highRateCurrency: 0,
-                        lowRate: typeof targetedObject.vs[7] == "string" ? parseInt(targetedObject.vs[7].replace(",", "")) : targetedObject.vs[7],
+                        // lowRate: typeof targetedObject.vs[7] == "string" ? parseInt(targetedObject.vs[7].replace(",", "")) : targetedObject.vs[7],
+                        lowRate: typeof targetedObject.vs[7] == "string" ? parseInt(targetedObject.vs[7].replace(/[^\d]/g, "").slice(1)) : targetedObject.vs[7],
                         lowRateCurrency: 0,
                         openRate: typeof targetedObject.vs[8] == "string" ? parseInt(targetedObject.vs[8].replace(",", "")) : targetedObject.vs[8],
                         prevRate: typeof targetedObject.vs[9] == "string" ? parseInt(targetedObject.vs[9].replace(",", "")) : targetedObject.vs[9],
@@ -306,6 +276,9 @@ function getTincapheData() {
             }
             postDataToCoffeeWeb(robustaArray, arabicaArray)
             // console.log("getting data from tincaphe")
+            // setInterval(() => {
+            //     callChild();
+            // }, 10000);
         })
         .catch(error => {
             console.error('Error while fetching data:', error.message);
@@ -350,3 +323,9 @@ app.listen(process.env.PORT, async () => {
         console.log(error.message)
     }
 })
+
+// function callChild(){
+//     let datte = new Date()
+//     console.log(datte)
+//     console.log("------------------------------")
+// }
