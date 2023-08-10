@@ -29,13 +29,15 @@ let arabicaNameList = [
 let optionExpiryForRobusta = [
     "16-AUG-2023",
     "19-OCT-2023",
-    "20-DEC-2023",
+    // "20-DEC-2023",
+    "21-DEC-2023",
     "15-FEB-2024",
     "19-APR-2024"
 ]
 let firstNoticeDateForRobusta = [
     "25-AUG-2023",
     "26-OCT-2023",
+    // "23-DEC-2023",
     "22-DEC-2023",
     "23-FEB-2024",
     "25-APR-2024"
@@ -43,13 +45,15 @@ let firstNoticeDateForRobusta = [
 let optionExpiryForArabica = [
     "11-AUG-2023",
     "11-NOV-2023",
-    "10-FEB-2024",
+    // "10-FEB-2024",
+    "09-FEB-2024",
     "13-APR-2024",
 ]
 let firstNoticeDateForArabica = [
     "23-AUG-2023",
     "21-NOV-2023",
-    "17-FEB-2024",
+    // "17-FEB-2024",
+    "21-FEB-2024",
     "28-APR-2024",
 ]
 
