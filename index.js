@@ -140,7 +140,6 @@ function actualValue(value) {
         }
     }
     else {
-        console.log(value)
         return value
     }
 }
@@ -304,7 +303,7 @@ function postDataToCoffeeWeb(robustaArray, arabicaArray) {
     let data = robustaArray.concat(arabicaArray);
     robustaGlobalArray = robustaArray
     arabicaGlobalArray = arabicaArray
-    console.log(data)
+    // console.log("++++++++++++++++++++++",data[0].optionExpiry)
     fetch('https://coffeeweb.org/api/TincapheAuth/InsertTincapheData', {
         method: 'POST',
         headers: {
