@@ -72,12 +72,12 @@ let xeNameDetails = [
     },
     {
         id: 2,
-        currencyName: "USD/REAL",
-        rowId: "40dabac4-146d-480d-8133-0bc2a24df5fc"
+        currencyName: "USD/VND",
+        rowId: "39cf70bf-cd01-4092-ae37-bb29850f900b"
     },
     {
         id: 3,
-        currencyName: "USD/VND",
+        currencyName: "USD/BRL",
         rowId: "7ea02d36-55c0-4c43-b49e-f49e6703b5e3"
     },
 ]
