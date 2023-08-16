@@ -145,7 +145,8 @@ function actualValue(value) {
             return parseInt(value.replace(/[^\d]/g, "").slice(1))
         }
         else {
-            return value.replace(",", "")
+            // return value.replace(",", "")
+            return parseFloat(value.replace(/,/g, '').replace(/s$/, ''))
         }
     }
     else {
@@ -309,7 +310,7 @@ function getTincapheData() {
                 }
             }
             postDataToCoffeeWeb(robustaArray, arabicaArray)
-            // console.log("getting data from tincaphe")
+            console.log("getting data from tincaphe")
         })
         .catch(error => {
             console.error('Error while fetching data:', error.message);
@@ -319,6 +320,7 @@ function getTincapheData() {
 
 function postDataToCoffeeWeb(robustaArray, arabicaArray) {
     let data = robustaArray.concat(arabicaArray);
+    // console.log(data)
     fetch('https://coffeeweb.org/api/TincapheAuth/InsertTincapheData', {
         method: 'POST',
         headers: {
