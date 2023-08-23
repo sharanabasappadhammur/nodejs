@@ -70,16 +70,16 @@ let xeNameDetails = [
         currencyName: "USD/INR",
         rowId: "49d26c9b-3f1b-44c0-877f-5c93355e0555"
     },
-    {
-        id: 2,
-        currencyName: "USD/VND",
-        rowId: "39cf70bf-cd01-4092-ae37-bb29850f900b"
-    },
-    {
-        id: 3,
-        currencyName: "USD/BRL",
-        rowId: "7ea02d36-55c0-4c43-b49e-f49e6703b5e3"
-    },
+    // {
+    //     id: 2,
+    //     currencyName: "USD/VND",
+    //     rowId: "39cf70bf-cd01-4092-ae37-bb29850f900b"
+    // },
+    // {
+    //     id: 3,
+    //     currencyName: "USD/BRL",
+    //     rowId: "7ea02d36-55c0-4c43-b49e-f49e6703b5e3"
+    // },
 ]
 
 const api = axios.create({
@@ -382,7 +382,7 @@ function getXECurrencyData() {
 }
 
 function postXECurrencyData(xeArray) {
-    console.log("getting XE data from tincaphe", xeArray)
+    // console.log("getting XE data from tincaphe", xeArray)
     fetch('https://coffeeweb.org/api/CoffeeQuotesCurrency/PostcoffeequotesCurrency', {
         method: 'POST',
         headers: {
