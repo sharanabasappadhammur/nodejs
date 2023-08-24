@@ -15,27 +15,27 @@ const cookieJar = new tough.CookieJar();
 
 let robustaDetails = [
     {
-        contractName : "RCU-23 (SEP 23)",
+        contractName: "RCU-23 (SEP 23)",
         optionExpiry: "16-AUG-2023",
         firstNoticeDay: "25-AUG-2023",
     },
     {
-        contractName : "RCX-23 (NOV 23)",
+        contractName: "RCX-23 (NOV 23)",
         optionExpiry: "19-OCT-2023",
         firstNoticeDay: "26-OCT-2023",
     },
     {
-        contractName : "RCF-24 (JAN 24)",
+        contractName: "RCF-24 (JAN 24)",
         optionExpiry: "21-DEC-2023",
         firstNoticeDay: "22-DEC-2023",
     },
     {
-        contractName : "RCH-24 (MAR 24)",
+        contractName: "RCH-24 (MAR 24)",
         optionExpiry: "15-FEB-2024",
         firstNoticeDay: "23-FEB-2024",
     },
     {
-        contractName : "RCK-24 (MAY 24)",
+        contractName: "RCK-24 (MAY 24)",
         optionExpiry: "19-APR-2024",
         firstNoticeDay: "25-APR-2024",
     },
@@ -43,22 +43,22 @@ let robustaDetails = [
 
 let arabicaDetails = [
     {
-        contractName : "KCU-23 (SEP 23)",
+        contractName: "KCU-23 (SEP 23)",
         optionExpiry: "11-AUG-2023",
         firstNoticeDay: "23-AUG-2023",
     },
     {
-        contractName : "KCZ-22 (DEC 23)",
+        contractName: "KCZ-22 (DEC 23)",
         optionExpiry: "11-NOV-2023",
         firstNoticeDay: "21-NOV-2023",
     },
     {
-        contractName : "KCH-23 (MAR 24)",
+        contractName: "KCH-23 (MAR 24)",
         optionExpiry: "09-FEB-2024",
         firstNoticeDay: "21-FEB-2024",
     },
     {
-        contractName : "KCK-23 (MAY 24)",
+        contractName: "KCK-23 (MAY 24)",
         optionExpiry: "13-APR-2024",
         firstNoticeDay: "28-APR-2024",
     }
@@ -191,7 +191,7 @@ function getTincapheData() {
                             return "boldAndRed"
                         }
 
-                        else if ((currentDate > targetDateForOEForRobusta) && (currentDate < targetDateFNRForRobusta)) {
+                        else if (currentDate > targetDateForOEForRobusta) {
                             return "expired"
                         }
                     }
@@ -199,11 +199,13 @@ function getTincapheData() {
                         if (differenceInDaysForRobustaFN < 10 && differenceInDaysForRobustaFN >= -1) {
                             return "boldAndRed"
                         }
-                        else if((currentDate > targetDateForOEForRobusta) && (currentDate < targetDateFNRForRobusta)){
+                        else if ((currentDate > targetDateForOEForRobusta) && (currentDate < targetDateFNRForRobusta)) {
                             return "boldAndBlack"
                         }
                         else if (differenceInDaysForRobustaOE < 10 && differenceInDaysForRobustaOE >= 0) {
                             return "boldAndBlack"
+                        } else if (currentDate > targetDateFNRForRobusta) {
+                            return "expired"
                         }
                     }
                     const object = {
@@ -256,7 +258,7 @@ function getTincapheData() {
                             return "boldAndRed"
                         }
 
-                        else if ((currentDate > targetDateForOEForArabica) && (currentDate < targetDateFNRForArabica)) {
+                        else if (currentDate > targetDateForOEForArabica) {
                             return "expired"
                         }
                     }
@@ -264,11 +266,13 @@ function getTincapheData() {
                         if (differenceInDaysForArabicaFN <= 10 && differenceInDaysForArabicaFN >= -1) {
                             return "boldAndRed"
                         }
-                        else if((currentDate > targetDateForOEForArabica) && (currentDate < targetDateFNRForArabica)){
+                        else if ((currentDate > targetDateForOEForArabica) && (currentDate < targetDateFNRForArabica)) {
                             return "boldAndBlack"
                         }
                         else if (differenceInDaysForArabicaOE <= 10 && differenceInDaysForArabicaOE >= -1) {
                             return "boldAndBlack"
+                        } else if (currentDate > targetDateFNRForArabica) {
+                            return "expired"
                         }
                     }
                     const object = {
