@@ -731,4 +731,85 @@ app.listen(process.env.PORT, async () => {
     }
 })
 
+let robustaDetails = [
+    {
+        idMarket: 1,
+        contractName: "RCU-23 (SEP 23)",
+        optionExpiry: "16-AUG-2023",
+        firstNoticeDay: "25-AUG-2023",
+        terminalId : "89ee81a5-a680-4207-ad25-6547d2ac9339",
+    },
+    {
+        idMarket: 1,
+        contractName: "RCX-23 (NOV 23)",
+        optionExpiry: "19-OCT-2023",
+        firstNoticeDay: "26-OCT-2023",
+        terminalId : "a6225921-0804-4dc3-a15a-4967659abbda",
+    },
+    {
+        idMarket: 1,
+        contractName: "RCF-24 (JAN 24)",
+        optionExpiry: "21-DEC-2023",
+        firstNoticeDay: "22-DEC-2023",
+        terminalId : "f0538d6e-a937-4820-a8a6-934e4dde5724",
+    },
+    {
+        idMarket: 1,
+        contractName: "RCH-24 (MAR 24)",
+        optionExpiry: "15-FEB-2024",
+        firstNoticeDay: "23-FEB-2024",
+        terminalId : "7cf1c98d-b646-479d-924d-9155ee2da13f",
+    },
+    {
+        idMarket: 1,
+        contractName: "RCK-24 (MAY 24)",
+        optionExpiry: "19-APR-2024",
+        firstNoticeDay: "25-APR-2024",
+        terminalId : "6acae6b3-a63a-4831-8cbc-298b132d5381",
+    },
+    {
+        idMarket: 2,
+        contractName: "KCU-23 (SEP 23)",
+        optionExpiry: "11-AUG-2023",
+        firstNoticeDay: "23-AUG-2023",
+        terminalId : "2bf4396a-c63b-425d-b772-27c9691ada1f",
+    },
+    {
+        idMarket: 2,
+        contractName: "KCZ-22 (DEC 23)",
+        optionExpiry: "11-NOV-2023",
+        firstNoticeDay: "21-NOV-2023",
+        terminalId : "e83f088d-1d96-4ff8-b4d0-0eb35dcac720",
+    },
+    {
+        idMarket: 2,
+        contractName: "KCH-23 (MAR 24)",
+        optionExpiry: "09-FEB-2024",
+        firstNoticeDay: "21-FEB-2024",
+        terminalId : "ad6789b9-b75c-43ac-8df7-14047fd376a2",
+    },
+    {
+        idMarket: 2,
+        contractName: "KCK-23 (MAY 24)",
+        optionExpiry: "13-APR-2024",
+        firstNoticeDay: "28-APR-2024",
+        terminalId : "c06c6ac6-70e7-4aa5-80b9-622ae8c6f8ae",
+    }
+]
+
+
+// {
+//     idMarket: 1,
+//     contractName: "RCK-24 (JUL 24)",
+//     optionExpiry: "21/06/24",
+//     firstNoticeDay: "7/06/24",
+//     terminalId : "0ba25c32-415c-427b-8070-fa463adb4453",
+// }
+// {
+//     idMarket: 2,
+//     contractName: "KCK-23 (JUL 24)",
+//     optionExpiry: "09/06/24",
+//     firstNoticeDay: "22/06/24",
+//     terminalId : "7ad5bad2-da36-4842-b706-287c3020642e",
+// }
 
