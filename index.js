@@ -14,11 +14,11 @@ app.use(express.json())
 const cookieJar = new tough.CookieJar();
 
 let robustaDetails = [
-    {
-        contractName: "RCU-23 (SEP 23)",
-        optionExpiry: "16-AUG-2023",
-        firstNoticeDay: "25-AUG-2023",
-    },
+    // {
+    //     contractName: "RCU-23 (SEP 23)",
+    //     optionExpiry: "16-AUG-2023",
+    //     firstNoticeDay: "25-AUG-2023",
+    // },
     {
         contractName: "RCX-23 (NOV 23)",
         optionExpiry: "19-OCT-2023",
@@ -39,19 +39,19 @@ let robustaDetails = [
         optionExpiry: "19-APR-2024",
         firstNoticeDay: "25-APR-2024",
     },
-    // {
-    //     contractName: "RCK-24 (JUL 24)",
-    //     optionExpiry: "21-JUN-2024",
-    //     firstNoticeDay: "7-JUN-2024",
-    // }
+    {
+        contractName: "RCK-24 (JUL 24)",
+        optionExpiry: "21-JUN-2024",
+        firstNoticeDay: "7-JUN-2024",
+    }
 ]
 
 let arabicaDetails = [
-    {
-        contractName: "KCU-23 (SEP 23)",
-        optionExpiry: "11-AUG-2023",
-        firstNoticeDay: "23-AUG-2023",
-    },
+    // {
+    //     contractName: "KCU-23 (SEP 23)",
+    //     optionExpiry: "11-AUG-2023",
+    //     firstNoticeDay: "23-AUG-2023",
+    // },
     {
         contractName: "KCZ-22 (DEC 23)",
         optionExpiry: "11-NOV-2023",
@@ -67,11 +67,11 @@ let arabicaDetails = [
         optionExpiry: "13-APR-2024",
         firstNoticeDay: "28-APR-2024",
     },
-    // {
-    //     contractName: "KCK-24 (JUL 24)",
-    //     optionExpiry: "09-JUN-2024",
-    //     firstNoticeDay: "22-JUN-2024",
-    // }
+    {
+        contractName: "KCK-24 (JUL 24)",
+        optionExpiry: "09-JUN-2024",
+        firstNoticeDay: "22-JUN-2024",
+    }
 ]
 
 let xeNameDetails = [
@@ -138,17 +138,17 @@ function Logout() {
 }
 
 let rowIds = [
-    "89ee81a5-a680-4207-ad25-6547d2ac9339", // sep
+    // "89ee81a5-a680-4207-ad25-6547d2ac9339", // sep
     "a6225921-0804-4dc3-a15a-4967659abbda",
     "f0538d6e-a937-4820-a8a6-934e4dde5724",
     "7cf1c98d-b646-479d-924d-9155ee2da13f",
     "6acae6b3-a63a-4831-8cbc-298b132d5381",
-    // "0ba25c32-415c-427b-8070-fa463adb4453", //JULY
-    "2bf4396a-c63b-425d-b772-27c9691ada1f", // sep
+    "0ba25c32-415c-427b-8070-fa463adb4453", //JULY
+    // "2bf4396a-c63b-425d-b772-27c9691ada1f", // sep
     "e83f088d-1d96-4ff8-b4d0-0eb35dcac720",
     "ad6789b9-b75c-43ac-8df7-14047fd376a2",
     "c06c6ac6-70e7-4aa5-80b9-622ae8c6f8ae",
-    // "7ad5bad2-da36-4842-b706-287c3020642e" //JULY
+    "7ad5bad2-da36-4842-b706-287c3020642e" //JULY
 ]
 
 function actualValue(value) {
