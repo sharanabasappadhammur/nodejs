@@ -40,7 +40,7 @@ let robustaDetails = [
         firstNoticeDay: "25-APR-2024",
     },
     {
-        contractName: "RCK-24 (JUL 24)",
+        contractName: "RCN-24 (JUL 24)",
         optionExpiry: "21-JUN-2024",
         firstNoticeDay: "07-JUN-2024",
     }
@@ -53,22 +53,22 @@ let arabicaDetails = [
     //     firstNoticeDay: "23-AUG-2023",
     // },
     {
-        contractName: "KCZ-22 (DEC 23)",
+        contractName: "KCZ-23 (DEC 23)",
         optionExpiry: "11-NOV-2023",
         firstNoticeDay: "21-NOV-2023",
     },
     {
-        contractName: "KCH-23 (MAR 24)",
+        contractName: "KCH-24 (MAR 24)",
         optionExpiry: "09-FEB-2024",
         firstNoticeDay: "21-FEB-2024",
     },
     {
-        contractName: "KCK-23 (MAY 24)",
+        contractName: "KCK-24 (MAY 24)",
         optionExpiry: "13-APR-2024",
         firstNoticeDay: "28-APR-2024",
     },
     {
-        contractName: "KCK-24 (JUL 24)",
+        contractName: "KCN-24 (JUL 24)",
         optionExpiry: "09-JUN-2024",
         firstNoticeDay: "22-JUN-2024",
     }
