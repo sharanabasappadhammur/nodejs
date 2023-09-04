@@ -41,8 +41,8 @@ let robustaDetails = [
     },
     {
         contractName: "RCK-24 (JUL 24)",
-        optionExpiry: "21-JUN-24",
-        firstNoticeDay: "7-JUN-24",
+        optionExpiry: "21-JUN-2024",
+        firstNoticeDay: "7-JUN-2024",
     }
 ]
 
@@ -69,8 +69,8 @@ let arabicaDetails = [
     },
     {
         contractName: "KCK-24 (JUL 24)",
-        optionExpiry: "09-JUN-24",
-        firstNoticeDay: "22-JUN-24",
+        optionExpiry: "09-JUN-2024",
+        firstNoticeDay: "22-JUN-2024",
     }
 ]
 
