@@ -42,7 +42,7 @@ let robustaDetails = [
     {
         contractName: "RCK-24 (JUL 24)",
         optionExpiry: "21-JUN-2024",
-        firstNoticeDay: "7-JUN-2024",
+        firstNoticeDay: "07-JUN-2024",
     }
 ]
 
