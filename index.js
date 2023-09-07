@@ -534,10 +534,11 @@ const getTerminalDetails = () => {
             //     }
             // })
             terminalDetails = response.returnLst.filter((ele)=>{
-                if(ele.isactive == true){
+                if(ele.isActive == true){
                     return ele
                 }
             })
+            // console.log(response.returnLst)
             // console.log(terminalDetails)
         })
         .catch(error => {
@@ -553,7 +554,7 @@ function getTincapheData() {
     api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
     api.post('http://tincaphe.com/api/services/app/priceTableClient/GetValues')
         .then(response => {
-
+console.log("terminalDetails",terminalDetails)
             let robustaArray = []
             let arabicaArray = []
 
@@ -564,8 +565,8 @@ function getTincapheData() {
                 // console.log(ele)
                 let targetedObject = response.data.result.find((item) => item.id === ele.terminalId)
                 const currentDate = new Date();
-                    const targetDateForOEForRobusta = new Date(ele.ptionExpiryDateFormat);
-                    const targetDateFNRForRobusta = new Date(ele.firstNoticeDayDAteFormat);
+                    const targetDateForOEForRobusta = new Date(ele.optionExpiryDateFormat);
+                    const targetDateFNRForRobusta = new Date(ele.firstNoticeDayDateFormat);
                     const timeDifferenceForRobustaOE = targetDateForOEForRobusta - currentDate;
                     const timeDifferenceForRobustaFN = targetDateFNRForRobusta - currentDate;
                     const differenceInDaysForRobustaOE = Math.floor(timeDifferenceForRobustaOE / (1000 * 60 * 60 * 24));
