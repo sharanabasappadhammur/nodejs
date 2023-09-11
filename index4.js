@@ -499,12 +499,13 @@ let arabicaArrays = [
     }
 ]
 
+let terminalDetails = []
 let terminalDetailsForRobusta = []
 let terminalDetailsForArabica = []
 
 const getTerminalDetails = () => {
-    console.log(terminalDetails)
-    fetch('https://coffeeweb.org/api/TerminalDetails/GetTerminalDetails', {
+    // console.log(terminalDetails)
+    fetch('https://www.coffeeweb.org/api/TerminalDetails/GetTerminalDetails', {
         method: 'get',
         headers: {
             Authorization: `Bearer ${localAuthToken}`,
@@ -515,15 +516,30 @@ const getTerminalDetails = () => {
         // body: JSON.stringify(data)
     })
         .then(response => {
-            // console.log(response)
+            console.log(response)
             // if (!response.ok) {
             //     throw new Error('Request failed with status ' + response.status);
             // }
             return response.json();
         })
         .then(response => {
-            terminalDetailsForRobusta = response.returnLst
-            terminalDetailsForArabica = response.returnLst
+            // terminalDetailsForRobusta = response.returnLst.filter((ele)=>{
+            //     if(ele.isactive == true && ele.idMarket == 1){
+            //         return ele
+            //     }
+            // })
+            // terminalDetailsForArabica = response.returnLst.filter((ele)=>{
+            //     if(ele.isactive == true && ele.idMarket == 2){
+            //         return ele
+            //     }
+            // })
+            terminalDetails = response.returnLst.filter((ele)=>{
+                if(ele.isActive == true){
+                    return ele
+                }
+            })
+            // console.log(response.returnLst)
+            // console.log(terminalDetails)
         })
         .catch(error => {
             console.error("error", error);
@@ -538,20 +554,18 @@ function getTincapheData() {
     api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
     api.post('http://tincaphe.com/api/services/app/priceTableClient/GetValues')
         .then(response => {
-
             let robustaArray = []
             let arabicaArray = []
 
             let ittirationForRobusta = 0
             let ittirationForArabica = 0
 
-            for (let i = 0; i < rowIds.length; i++) {
-                let targetedObject = response.data.result.find((ele) => rowIds[i] === ele.id)
-
-                if (i <= 4) {
-                    const currentDate = new Date();
-                    const targetDateForOEForRobusta = new Date(robustaDetails[ittirationForRobusta].optionExpiry);
-                    const targetDateFNRForRobusta = new Date(robustaDetails[ittirationForRobusta].firstNoticeDay);
+            let modifiedData = terminalDetails.map((ele)=>{
+                // console.log(ele)
+                let targetedObject = response.data.result.find((item) => item.id === ele.terminalId)
+                const currentDate = new Date();
+                    const targetDateForOEForRobusta = new Date(ele.optionExpiryDateFormat);
+                    const targetDateFNRForRobusta = new Date(ele.firstNoticeDayDateFormat);
                     const timeDifferenceForRobustaOE = targetDateForOEForRobusta - currentDate;
                     const timeDifferenceForRobustaFN = targetDateFNRForRobusta - currentDate;
                     const differenceInDaysForRobustaOE = Math.floor(timeDifferenceForRobustaOE / (1000 * 60 * 60 * 24));
@@ -585,10 +599,10 @@ function getTincapheData() {
                         createdOn: new Date(),
                         updatedBy: 1,
                         updatedDtms: new Date(),
-                        idMarket: 1,
-                        contractName: robustaDetails[ittirationForRobusta].contractName.toString(),
-                        lastChng: actualValue(targetedObject.vs[1]) ? actualValue(targetedObject.vs[1]) : robustaArrays[ittirationForRobusta].lastChng,
-                        chng: actualValue(targetedObject.vs[2]) ? actualValue(targetedObject.vs[2]) : robustaArrays[ittirationForRobusta].chng,
+                        idMarket: ele.idMarket,
+                        contractName: ele.contractName,
+                        lastChng: actualValue(targetedObject.vs[1]) ? actualValue(targetedObject.vs[1]) : 0,
+                        chng: actualValue(targetedObject.vs[2]) ? actualValue(targetedObject.vs[2]) : 0,
                         percentageVal: actualValue(targetedObject.vs[3]),
                         volume: actualValue(targetedObject.vs[4]),
                         highRate: actualValue(targetedObject.vs[6]),
@@ -602,96 +616,169 @@ function getTincapheData() {
                         bsize: targetedObject.vs[12],
                         ask: targetedObject.vs[13],
                         asize: targetedObject.vs[14],
-                        optionExpiry: robustaDetails[ittirationForRobusta].optionExpiry.toString(),
+                        optionExpiry: ele.optionExpiry,
                         optionExpiryStatus: optionExpiryStatusForRubusta(),
-                        firstNoticeDate: robustaDetails[ittirationForRobusta].firstNoticeDay.toString(),
+                        firstNoticeDate: ele.firstNoticeDay,
                         firstNoticeDateStatus: firstNoticeDayStatusForRubusta(),
                         highCurrency: 0,
                         lowCurrency: 0,
-                        marketName: robustaDetails[ittirationForRobusta].contractName.toString(),
+                        marketName: ele.contractName,
                         userSymbolId: 0,
                         orderBy: 0,
-                        netHigh: 0,
-                        netLow: 0,
-                        terminalId: robustaDetails[ittirationForRobusta].terminalId
+                        terminalId: ele.terminalId
                     }
-                    robustaArray.push(object)
-                    ittirationForRobusta += 1
-                }
-                else {
-                    const currentDate = new Date();
-                    const targetDateForOEForArabica = new Date(arabicaDetails[ittirationForArabica].optionExpiry);
-                    const targetDateFNRForArabica = new Date(arabicaDetails[ittirationForArabica].firstNoticeDay);
-                    const timeDifferenceForArabicaOE = targetDateForOEForArabica - currentDate;
-                    const timeDifferenceForArabicaFN = targetDateFNRForArabica - currentDate;
-                    const differenceInDaysForArabicaOE = Math.floor(timeDifferenceForArabicaOE / (1000 * 60 * 60 * 24));
-                    const differenceInDaysForArabicaFN = Math.floor(timeDifferenceForArabicaFN / (1000 * 60 * 60 * 24));
-                    let optionExpiryStatusForArabica = () => {
-                        if (differenceInDaysForArabicaOE <= 10 && differenceInDaysForArabicaOE >= -1) {
-                            return "boldAndRed"
-                        }
+                    // robustaArray.push(object)
+                    return object
+            })
+            // for (let i = 0; i < terminalDetailsForRobusta.length; i++) {
+            //     let targetedObject = response.data.result.find((ele) => terminalDetailsForRobusta[i] === ele.id)
 
-                        else if (currentDate > targetDateForOEForArabica) {
-                            return "expired"
-                        }
-                    }
-                    let firstNoticeDayStatusForArabica = () => {
-                        if (differenceInDaysForArabicaFN <= 10 && differenceInDaysForArabicaFN >= -1) {
-                            return "boldAndRed"
-                        }
-                        else if ((currentDate > targetDateForOEForArabica) && (currentDate < targetDateFNRForArabica)) {
-                            return "boldAndBlack"
-                        }
-                        else if (differenceInDaysForArabicaOE <= 10 && differenceInDaysForArabicaOE >= -1) {
-                            return "boldAndBlack"
-                        } else if (currentDate > targetDateFNRForArabica) {
-                            return "expired"
-                        }
-                    }
-                    const object = {
-                        isHighlight: 0,
-                        id: ittirationForArabica,
-                        createdBy: 1,
-                        createdOn: new Date(),
-                        updatedBy: 1,
-                        updatedDtms: new Date(),
-                        idMarket: 2,
-                        contractName: arabicaDetails[ittirationForArabica].contractName.toString(),
-                        lastChng: actualValue(targetedObject.vs[1]) ? actualValue(targetedObject.vs[1]) : arabicaArrays[ittirationForArabica].lastChng,
-                        chng: actualValue(targetedObject.vs[2]) ? actualValue(targetedObject.vs[2]) : arabicaArrays[ittirationForArabica].chng,
-                        percentageVal: actualValue(targetedObject.vs[3]),
-                        volume: actualValue(targetedObject.vs[4]),
-                        highRate: actualValue(targetedObject.vs[6]),
-                        highRateCurrency: 0,
-                        lowRate: actualValue(targetedObject.vs[7]),
-                        lowRateCurrency: 0,
-                        openRate: actualValue(targetedObject.vs[8]),
-                        prevRate: actualValue(targetedObject.vs[9]),
-                        openInterest: actualValue(targetedObject.vs[10]),
-                        bid: actualValue(targetedObject.vs[11]),
-                        bsize: actualValue(targetedObject.vs[12]),
-                        ask: actualValue(targetedObject.vs[13]),
-                        asize: actualValue(targetedObject.vs[14]),
-                        optionExpiry: arabicaDetails[ittirationForArabica].optionExpiry.toString(),
-                        optionExpiryStatus: optionExpiryStatusForArabica(),
-                        firstNoticeDate: arabicaDetails[ittirationForArabica].firstNoticeDay.toString(),
-                        firstNoticeDateStatus: firstNoticeDayStatusForArabica(),
-                        highCurrency: 0,
-                        lowCurrency: 0,
-                        marketName: arabicaDetails[ittirationForArabica].contractName.toString(),
-                        userSymbolId: 0,
-                        orderBy: 0,
-                        netHigh: 0,
-                        netLow: 0,
-                        terminalId: arabicaDetails[ittirationForArabica].terminalId
-                    }
-                    arabicaArray.push(object)
-                    ittirationForArabica += 1
-                }
-            }
+            //     if (i <= 4) {
+            //         const currentDate = new Date();
+            //         const targetDateForOEForRobusta = new Date(robustaDetails[ittirationForRobusta].optionExpiry);
+            //         const targetDateFNRForRobusta = new Date(robustaDetails[ittirationForRobusta].firstNoticeDay);
+            //         const timeDifferenceForRobustaOE = targetDateForOEForRobusta - currentDate;
+            //         const timeDifferenceForRobustaFN = targetDateFNRForRobusta - currentDate;
+            //         const differenceInDaysForRobustaOE = Math.floor(timeDifferenceForRobustaOE / (1000 * 60 * 60 * 24));
+            //         const differenceInDaysForRobustaFN = Math.floor(timeDifferenceForRobustaFN / (1000 * 60 * 60 * 24));
+            //         let optionExpiryStatusForRubusta = () => {
+            //             if (differenceInDaysForRobustaOE < 10 && differenceInDaysForRobustaOE >= -1) {
+            //                 return "boldAndRed"
+            //             }
+
+            //             else if (currentDate > targetDateForOEForRobusta) {
+            //                 return "expired"
+            //             }
+            //         }
+            //         let firstNoticeDayStatusForRubusta = () => {
+            //             if (differenceInDaysForRobustaFN < 10 && differenceInDaysForRobustaFN >= -1) {
+            //                 return "boldAndRed"
+            //             }
+            //             else if ((currentDate > targetDateForOEForRobusta) && (currentDate < targetDateFNRForRobusta)) {
+            //                 return "boldAndBlack"
+            //             }
+            //             else if (differenceInDaysForRobustaOE < 10 && differenceInDaysForRobustaOE >= 0) {
+            //                 return "boldAndBlack"
+            //             } else if (currentDate > targetDateFNRForRobusta) {
+            //                 return "expired"
+            //             }
+            //         }
+            //         const object = {
+            //             isHighlight: 0,
+            //             id: ittirationForRobusta,
+            //             createdBy: 1,
+            //             createdOn: new Date(),
+            //             updatedBy: 1,
+            //             updatedDtms: new Date(),
+            //             idMarket: 1,
+            //             contractName: robustaDetails[ittirationForRobusta].contractName.toString(),
+            //             lastChng: actualValue(targetedObject.vs[1]) ? actualValue(targetedObject.vs[1]) : robustaArrays[ittirationForRobusta].lastChng,
+            //             chng: actualValue(targetedObject.vs[2]) ? actualValue(targetedObject.vs[2]) : robustaArrays[ittirationForRobusta].chng,
+            //             percentageVal: actualValue(targetedObject.vs[3]),
+            //             volume: actualValue(targetedObject.vs[4]),
+            //             highRate: actualValue(targetedObject.vs[6]),
+            //             highRateCurrency: 0,
+            //             lowRate: actualValue(targetedObject.vs[7]),
+            //             lowRateCurrency: 0,
+            //             openRate: actualValue(targetedObject.vs[8]),
+            //             prevRate: actualValue(targetedObject.vs[9]),
+            //             openInterest: targetedObject.vs[10],
+            //             bid: targetedObject.vs[11],
+            //             bsize: targetedObject.vs[12],
+            //             ask: targetedObject.vs[13],
+            //             asize: targetedObject.vs[14],
+            //             optionExpiry: robustaDetails[ittirationForRobusta].optionExpiry.toString(),
+            //             optionExpiryStatus: optionExpiryStatusForRubusta(),
+            //             firstNoticeDate: robustaDetails[ittirationForRobusta].firstNoticeDay.toString(),
+            //             firstNoticeDateStatus: firstNoticeDayStatusForRubusta(),
+            //             highCurrency: 0,
+            //             lowCurrency: 0,
+            //             marketName: robustaDetails[ittirationForRobusta].contractName.toString(),
+            //             userSymbolId: 0,
+            //             orderBy: 0,
+            //             netHigh: 0,
+            //             netLow: 0,
+            //             terminalId: robustaDetails[ittirationForRobusta].terminalId
+            //         }
+            //         robustaArray.push(object)
+            //         ittirationForRobusta += 1
+            //     }
+            //     else {
+            //         const currentDate = new Date();
+            //         const targetDateForOEForArabica = new Date(arabicaDetails[ittirationForArabica].optionExpiry);
+            //         const targetDateFNRForArabica = new Date(arabicaDetails[ittirationForArabica].firstNoticeDay);
+            //         const timeDifferenceForArabicaOE = targetDateForOEForArabica - currentDate;
+            //         const timeDifferenceForArabicaFN = targetDateFNRForArabica - currentDate;
+            //         const differenceInDaysForArabicaOE = Math.floor(timeDifferenceForArabicaOE / (1000 * 60 * 60 * 24));
+            //         const differenceInDaysForArabicaFN = Math.floor(timeDifferenceForArabicaFN / (1000 * 60 * 60 * 24));
+            //         let optionExpiryStatusForArabica = () => {
+            //             if (differenceInDaysForArabicaOE <= 10 && differenceInDaysForArabicaOE >= -1) {
+            //                 return "boldAndRed"
+            //             }
+
+            //             else if (currentDate > targetDateForOEForArabica) {
+            //                 return "expired"
+            //             }
+            //         }
+            //         let firstNoticeDayStatusForArabica = () => {
+            //             if (differenceInDaysForArabicaFN <= 10 && differenceInDaysForArabicaFN >= -1) {
+            //                 return "boldAndRed"
+            //             }
+            //             else if ((currentDate > targetDateForOEForArabica) && (currentDate < targetDateFNRForArabica)) {
+            //                 return "boldAndBlack"
+            //             }
+            //             else if (differenceInDaysForArabicaOE <= 10 && differenceInDaysForArabicaOE >= -1) {
+            //                 return "boldAndBlack"
+            //             } else if (currentDate > targetDateFNRForArabica) {
+            //                 return "expired"
+            //             }
+            //         }
+            //         const object = {
+            //             isHighlight: 0,
+            //             id: ittirationForArabica,
+            //             createdBy: 1,
+            //             createdOn: new Date(),
+            //             updatedBy: 1,
+            //             updatedDtms: new Date(),
+            //             idMarket: 2,
+            //             contractName: arabicaDetails[ittirationForArabica].contractName.toString(),
+            //             lastChng: actualValue(targetedObject.vs[1]) ? actualValue(targetedObject.vs[1]) : arabicaArrays[ittirationForArabica].lastChng,
+            //             chng: actualValue(targetedObject.vs[2]) ? actualValue(targetedObject.vs[2]) : arabicaArrays[ittirationForArabica].chng,
+            //             percentageVal: actualValue(targetedObject.vs[3]),
+            //             volume: actualValue(targetedObject.vs[4]),
+            //             highRate: actualValue(targetedObject.vs[6]),
+            //             highRateCurrency: 0,
+            //             lowRate: actualValue(targetedObject.vs[7]),
+            //             lowRateCurrency: 0,
+            //             openRate: actualValue(targetedObject.vs[8]),
+            //             prevRate: actualValue(targetedObject.vs[9]),
+            //             openInterest: actualValue(targetedObject.vs[10]),
+            //             bid: actualValue(targetedObject.vs[11]),
+            //             bsize: actualValue(targetedObject.vs[12]),
+            //             ask: actualValue(targetedObject.vs[13]),
+            //             asize: actualValue(targetedObject.vs[14]),
+            //             optionExpiry: arabicaDetails[ittirationForArabica].optionExpiry.toString(),
+            //             optionExpiryStatus: optionExpiryStatusForArabica(),
+            //             firstNoticeDate: arabicaDetails[ittirationForArabica].firstNoticeDay.toString(),
+            //             firstNoticeDateStatus: firstNoticeDayStatusForArabica(),
+            //             highCurrency: 0,
+            //             lowCurrency: 0,
+            //             marketName: arabicaDetails[ittirationForArabica].contractName.toString(),
+            //             userSymbolId: 0,
+            //             orderBy: 0,
+            //             netHigh: 0,
+            //             netLow: 0,
+            //             terminalId: arabicaDetails[ittirationForArabica].terminalId
+            //         }
+            //         arabicaArray.push(object)
+            //         ittirationForArabica += 1
+            //     }
+            // }
             robustaArrays = robustaArray
             arabicaArrays = arabicaArray
-            postDataToCoffeeWeb(robustaArray, arabicaArray)
+            // postDataToCoffeeWeb(robustaArray, arabicaArray)
+            // console.log(modifiedData)
+            postDataToCoffeeWeb(modifiedData)
             console.log("getting data from tincaphe")
         })
         .catch(error => {
@@ -700,8 +787,9 @@ function getTincapheData() {
         });
 }
 
-const postDataToCoffeeWeb = (robustaArray, arabicaArray) => {
-    let data = robustaArray.concat(arabicaArray);
+const postDataToCoffeeWeb = (modifiedData) => {
+    let data = modifiedData
+    console.log(data)
     fetch('https://coffeeweb.org/api/TincapheAuth/InsertTincapheData', {
         method: 'POST',
         headers: {
