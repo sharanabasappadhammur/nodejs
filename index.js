@@ -724,7 +724,7 @@ function getTincapheData() {
 
 const postDataToCoffeeWeb = (robustaArray, arabicaArray) => {
     let data = robustaArray.concat(arabicaArray);
-    console.log(data)
+    // console.log(data)
     fetch('https://www.coffeeweb.org/api/TincapheAuth/InsertTincapheData', {
         method: 'POST',
         headers: {
