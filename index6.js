@@ -201,9 +201,9 @@ setInterval(() => {
     getTincapheData()
 }, 1000);
 
-setInterval(() => {
-    getTerminalDetails()
-}, 10000);
+// setInterval(() => {
+//     getTerminalDetails()
+// }, 10000);
 
 let robustaArrays = [
     {
@@ -540,15 +540,15 @@ const getTerminalDetails = () => {
             return response.json();
         })
         .then(response => {
-            terminalDetailsForRobusta = response.returnLst.filter(ele => ele.idMarket == 1)
-            terminalDetailsForArabica = response.returnLst.filter(ele => ele.idMarket == 2)
+            terminalDetailsForRobusta = response.returnLst
+            terminalDetailsForArabica = response.returnLst
         })
         .catch(error => {
             console.error("error", error);
         });
 }
 
-getTerminalDetails()
+// getTerminalDetails()
 
 function getTincapheData() {
     let token = generatedTokenForAuthenticate
@@ -559,164 +559,157 @@ function getTincapheData() {
 
             let robustaArray = []
             let arabicaArray = []
-            // console.log(terminalDetailsForArabica)
 
-            // let ittirationForRobusta = 0
-            // let ittirationForArabica = 0
+            let ittirationForRobusta = 0
+            let ittirationForArabica = 0
 
-            for (let i = 0; i < terminalDetailsForRobusta.length; i++) {
-                let targetedObject = response.data.result.find((ele) => terminalDetailsForRobusta[i].terminalId === ele.id)
-                const currentDate = new Date();
-                const targetDateForOEForRobusta = new Date(terminalDetailsForRobusta[i].optionExpiryDateFormat);
-                const targetDateFNRForRobusta = new Date(terminalDetailsForRobusta[i].firstNoticeDayDateFormat);
-                const timeDifferenceForRobustaOE = targetDateForOEForRobusta - currentDate;
-                const timeDifferenceForRobustaFN = targetDateFNRForRobusta - currentDate;
-                const differenceInDaysForRobustaOE = Math.floor(timeDifferenceForRobustaOE / (1000 * 60 * 60 * 24));
-                const differenceInDaysForRobustaFN = Math.floor(timeDifferenceForRobustaFN / (1000 * 60 * 60 * 24));
-                let optionExpiryStatusForRubusta = () => {
-                    if (differenceInDaysForRobustaOE < 10 && differenceInDaysForRobustaOE >= -1) {
-                        return "boldAndRed"
-                    }
+            for (let i = 0; i < rowIds.length; i++) {
+                let targetedObject = response.data.result.find((ele) => rowIds[i] === ele.id)
 
-                    else if (currentDate > targetDateForOEForRobusta) {
-                        return "expired"
-                    } else {
-                        return ""
-                    }
-                }
-                let firstNoticeDayStatusForRubusta = () => {
-                    if (differenceInDaysForRobustaFN < 10 && differenceInDaysForRobustaFN >= -1) {
-                        return "boldAndRed"
-                    }
-                    else if ((currentDate > targetDateForOEForRobusta) && (currentDate < targetDateFNRForRobusta)) {
-                        return "boldAndBlack"
-                    }
-                    else if (differenceInDaysForRobustaOE < 10 && differenceInDaysForRobustaOE >= 0) {
-                        return "boldAndBlack"
-                    } else if (currentDate > targetDateFNRForRobusta) {
-                        return "expired"
-                    } else {
-                        return ""
-                    }
-                }
-                const object = {
-                    isHighlight: 0,
-                    id: i,
-                    createdBy: 1,
-                    createdOn: new Date(),
-                    updatedBy: 1,
-                    updatedDtms: new Date(),
-                    idMarket: 1,
-                    contractName: terminalDetailsForRobusta[i].contractName,
-                    lastChng: actualValue(targetedObject.vs[1]) ? actualValue(targetedObject.vs[1]) : robustaArrays[i]?.lastChng,
-                    chng: actualValue(targetedObject.vs[2]) ? actualValue(targetedObject.vs[2]) : robustaArrays[i]?.chng,
-                    percentageVal: actualValue(targetedObject.vs[3]),
-                    volume: actualValue(targetedObject.vs[4]),
-                    highRate: actualValue(targetedObject.vs[6]),
-                    highRateCurrency: 0,
-                    lowRate: actualValue(targetedObject.vs[7]),
-                    lowRateCurrency: 0,
-                    openRate: actualValue(targetedObject.vs[8]),
-                    prevRate: actualValue(targetedObject.vs[9]),
-                    openInterest: targetedObject.vs[10],
-                    bid: targetedObject.vs[11],
-                    bsize: targetedObject.vs[12],
-                    ask: targetedObject.vs[13],
-                    asize: targetedObject.vs[14],
-                    optionExpiry: terminalDetailsForRobusta[i].optionExpiry,
-                    optionExpiryStatus: optionExpiryStatusForRubusta(),
-                    firstNoticeDate: terminalDetailsForRobusta[i].firstNoticeDay,
-                    firstNoticeDateStatus: firstNoticeDayStatusForRubusta(),
-                    highCurrency: 0,
-                    lowCurrency: 0,
-                    marketName: terminalDetailsForRobusta[i].contractName,
-                    userSymbolId: 0,
-                    orderBy: 0,
-                    terminalId: terminalDetailsForRobusta[i].terminalId,
-                    contractHighRate: terminalDetailsForRobusta[i].contractHighRate,
-                    contractLowRate: terminalDetailsForRobusta[i].contractLowRate,
-                    contractHighDate: terminalDetailsForRobusta[i].contractHighDate,
-                    contractLowDate: terminalDetailsForRobusta[i].contractLowDate
-                }
-                robustaArray.push(object)
-                // ittirationForRobusta += 1
-            }
-            for (let i = 0; i < terminalDetailsForArabica.length; i++) {
-                let targetedObject = response.data.result.find((ele) => terminalDetailsForArabica[i].terminalId === ele.id)
-                const currentDate = new Date();
-                const targetDateForOEForRobusta = new Date(terminalDetailsForArabica[i].optionExpiryDateFormat);
-                const targetDateFNRForRobusta = new Date(terminalDetailsForArabica[i].firstNoticeDayDateFormat);
-                const timeDifferenceForRobustaOE = targetDateForOEForRobusta - currentDate;
-                const timeDifferenceForRobustaFN = targetDateFNRForRobusta - currentDate;
-                const differenceInDaysForRobustaOE = Math.floor(timeDifferenceForRobustaOE / (1000 * 60 * 60 * 24));
-                const differenceInDaysForRobustaFN = Math.floor(timeDifferenceForRobustaFN / (1000 * 60 * 60 * 24));
-                let optionExpiryStatusForRubusta = () => {
-                    if (differenceInDaysForRobustaOE < 10 && differenceInDaysForRobustaOE >= -1) {
-                        return "boldAndRed"
-                    }
+                if (i <= 4) {
+                    const currentDate = new Date();
+                    const targetDateForOEForRobusta = new Date(robustaDetails[ittirationForRobusta].optionExpiry);
+                    const targetDateFNRForRobusta = new Date(robustaDetails[ittirationForRobusta].firstNoticeDay);
+                    const timeDifferenceForRobustaOE = targetDateForOEForRobusta - currentDate;
+                    const timeDifferenceForRobustaFN = targetDateFNRForRobusta - currentDate;
+                    const differenceInDaysForRobustaOE = Math.floor(timeDifferenceForRobustaOE / (1000 * 60 * 60 * 24));
+                    const differenceInDaysForRobustaFN = Math.floor(timeDifferenceForRobustaFN / (1000 * 60 * 60 * 24));
+                    let optionExpiryStatusForRubusta = () => {
+                        if (differenceInDaysForRobustaOE < 10 && differenceInDaysForRobustaOE >= -1) {
+                            return "boldAndRed"
+                        }
 
-                    else if (currentDate > targetDateForOEForRobusta) {
-                        return "expired"
-                    } else {
-                        return ""
+                        else if (currentDate > targetDateForOEForRobusta) {
+                            return "expired"
+                        } else{
+                            return ""
+                        }
                     }
+                    let firstNoticeDayStatusForRubusta = () => {
+                        if (differenceInDaysForRobustaFN < 10 && differenceInDaysForRobustaFN >= -1) {
+                            return "boldAndRed"
+                        }
+                        else if ((currentDate > targetDateForOEForRobusta) && (currentDate < targetDateFNRForRobusta)) {
+                            return "boldAndBlack"
+                        }
+                        else if (differenceInDaysForRobustaOE < 10 && differenceInDaysForRobustaOE >= 0) {
+                            return "boldAndBlack"
+                        } else if (currentDate > targetDateFNRForRobusta) {
+                            return "expired"
+                        } else{
+                            return ""
+                        }
+                    }
+                    const object = {
+                        isHighlight: 0,
+                        id: ittirationForRobusta,
+                        createdBy: 1,
+                        createdOn: new Date(),
+                        updatedBy: 1,
+                        updatedDtms: new Date(),
+                        idMarket: 1,
+                        contractName: robustaDetails[ittirationForRobusta].contractName.toString(),
+                        lastChng: actualValue(targetedObject.vs[1]) ? actualValue(targetedObject.vs[1]) : robustaArrays[ittirationForRobusta].lastChng,
+                        chng: actualValue(targetedObject.vs[2]) ? actualValue(targetedObject.vs[2]) : robustaArrays[ittirationForRobusta].chng,
+                        percentageVal: actualValue(targetedObject.vs[3]),
+                        volume: actualValue(targetedObject.vs[4]),
+                        highRate: actualValue(targetedObject.vs[6]),
+                        highRateCurrency: 0,
+                        lowRate: actualValue(targetedObject.vs[7]),
+                        lowRateCurrency: 0,
+                        openRate: actualValue(targetedObject.vs[8]),
+                        prevRate: actualValue(targetedObject.vs[9]),
+                        openInterest: targetedObject.vs[10],
+                        bid: targetedObject.vs[11],
+                        bsize: targetedObject.vs[12],
+                        ask: targetedObject.vs[13],
+                        asize: targetedObject.vs[14],
+                        optionExpiry: robustaDetails[ittirationForRobusta].optionExpiry.toString(),
+                        optionExpiryStatus: optionExpiryStatusForRubusta(),
+                        firstNoticeDate: robustaDetails[ittirationForRobusta].firstNoticeDay.toString(),
+                        firstNoticeDateStatus: firstNoticeDayStatusForRubusta(),
+                        highCurrency: 0,
+                        lowCurrency: 0,
+                        marketName: robustaDetails[ittirationForRobusta].contractName.toString(),
+                        userSymbolId: 0,
+                        orderBy: 0,
+                        terminalId: robustaDetails[ittirationForRobusta].terminalId
+                    }
+                    robustaArray.push(object)
+                    ittirationForRobusta += 1
                 }
-                let firstNoticeDayStatusForRubusta = () => {
-                    if (differenceInDaysForRobustaFN < 10 && differenceInDaysForRobustaFN >= -1) {
-                        return "boldAndRed"
+                else {
+                    const currentDate = new Date();
+                    const targetDateForOEForArabica = new Date(arabicaDetails[ittirationForArabica].optionExpiry);
+                    const targetDateFNRForArabica = new Date(arabicaDetails[ittirationForArabica].firstNoticeDay);
+                    const timeDifferenceForArabicaOE = targetDateForOEForArabica - currentDate;
+                    const timeDifferenceForArabicaFN = targetDateFNRForArabica - currentDate;
+                    const differenceInDaysForArabicaOE = Math.floor(timeDifferenceForArabicaOE / (1000 * 60 * 60 * 24));
+                    const differenceInDaysForArabicaFN = Math.floor(timeDifferenceForArabicaFN / (1000 * 60 * 60 * 24));
+                    let optionExpiryStatusForArabica = () => {
+                        if (differenceInDaysForArabicaOE <= 10 && differenceInDaysForArabicaOE >= -1) {
+                            return "boldAndRed"
+                        }
+
+                        else if (currentDate > targetDateForOEForArabica) {
+                            return "expired"
+                        }else{
+                            return ""
+                        }
                     }
-                    else if ((currentDate > targetDateForOEForRobusta) && (currentDate < targetDateFNRForRobusta)) {
-                        return "boldAndBlack"
+                    let firstNoticeDayStatusForArabica = () => {
+                        if (differenceInDaysForArabicaFN <= 10 && differenceInDaysForArabicaFN >= -1) {
+                            return "boldAndRed"
+                        }
+                        else if ((currentDate > targetDateForOEForArabica) && (currentDate < targetDateFNRForArabica)) {
+                            return "boldAndBlack"
+                        }
+                        else if (differenceInDaysForArabicaOE <= 10 && differenceInDaysForArabicaOE >= -1) {
+                            return "boldAndBlack"
+                        } else if (currentDate > targetDateFNRForArabica) {
+                            return "expired"
+                        } else{
+                            return ""
+                        }
                     }
-                    else if (differenceInDaysForRobustaOE < 10 && differenceInDaysForRobustaOE >= 0) {
-                        return "boldAndBlack"
-                    } else if (currentDate > targetDateFNRForRobusta) {
-                        return "expired"
-                    } else {
-                        return ""
+                    const object = {
+                        isHighlight: 0,
+                        id: ittirationForArabica,
+                        createdBy: 1,
+                        createdOn: new Date(),
+                        updatedBy: 1,
+                        updatedDtms: new Date(),
+                        idMarket: 2,
+                        contractName: arabicaDetails[ittirationForArabica].contractName.toString(),
+                        lastChng: actualValue(targetedObject.vs[1]) ? actualValue(targetedObject.vs[1]) : arabicaArrays[ittirationForArabica].lastChng,
+                        chng: actualValue(targetedObject.vs[2]) ? actualValue(targetedObject.vs[2]) : arabicaArrays[ittirationForArabica].chng,
+                        percentageVal: actualValue(targetedObject.vs[3]),
+                        volume: actualValue(targetedObject.vs[4]),
+                        highRate: actualValue(targetedObject.vs[6]),
+                        highRateCurrency: 0,
+                        lowRate: actualValue(targetedObject.vs[7]),
+                        lowRateCurrency: 0,
+                        openRate: actualValue(targetedObject.vs[8]),
+                        prevRate: actualValue(targetedObject.vs[9]),
+                        openInterest: actualValue(targetedObject.vs[10]),
+                        bid: actualValue(targetedObject.vs[11]),
+                        bsize: actualValue(targetedObject.vs[12]),
+                        ask: actualValue(targetedObject.vs[13]),
+                        asize: actualValue(targetedObject.vs[14]),
+                        optionExpiry: arabicaDetails[ittirationForArabica].optionExpiry.toString(),
+                        optionExpiryStatus: optionExpiryStatusForArabica(),
+                        firstNoticeDate: arabicaDetails[ittirationForArabica].firstNoticeDay.toString(),
+                        firstNoticeDateStatus: firstNoticeDayStatusForArabica(),
+                        highCurrency: 0,
+                        lowCurrency: 0,
+                        marketName: arabicaDetails[ittirationForArabica].contractName.toString(),
+                        userSymbolId: 0,
+                        orderBy: 0,
+                        terminalId: arabicaDetails[ittirationForArabica].terminalId
                     }
+                    arabicaArray.push(object)
+                    ittirationForArabica += 1
                 }
-                const object = {
-                    isHighlight: 0,
-                    id: i,
-                    createdBy: 1,
-                    createdOn: new Date(),
-                    updatedBy: 1,
-                    updatedDtms: new Date(),
-                    idMarket: 2,
-                    contractName: terminalDetailsForArabica[i].contractName,
-                    lastChng: actualValue(targetedObject.vs[1]) ? actualValue(targetedObject.vs[1]) : arabicaArray[i]?.lastChng,
-                    chng: actualValue(targetedObject.vs[2]) ? actualValue(targetedObject.vs[2]) : arabicaArray[i]?.chng,
-                    percentageVal: actualValue(targetedObject.vs[3]),
-                    volume: actualValue(targetedObject.vs[4]),
-                    highRate: actualValue(targetedObject.vs[6]),
-                    highRateCurrency: 0,
-                    lowRate: actualValue(targetedObject.vs[7]),
-                    lowRateCurrency: 0,
-                    openRate: actualValue(targetedObject.vs[8]),
-                    prevRate: actualValue(targetedObject.vs[9]),
-                    openInterest: targetedObject.vs[10],
-                    bid: targetedObject.vs[11],
-                    bsize: targetedObject.vs[12],
-                    ask: targetedObject.vs[13],
-                    asize: targetedObject.vs[14],
-                    optionExpiry: terminalDetailsForArabica[i].optionExpiry,
-                    optionExpiryStatus: optionExpiryStatusForRubusta(),
-                    firstNoticeDate: terminalDetailsForArabica[i].firstNoticeDay,
-                    firstNoticeDateStatus: firstNoticeDayStatusForRubusta(),
-                    highCurrency: 0,
-                    lowCurrency: 0,
-                    marketName: terminalDetailsForArabica[i].contractName,
-                    userSymbolId: 0,
-                    orderBy: 0,
-                    terminalId: terminalDetailsForArabica[i].terminalId,
-                    contractHighRate: terminalDetailsForArabica[i].contractHighRate,
-                    contractLowRate: terminalDetailsForArabica[i].contractLowRate,
-                    contractHighDate: terminalDetailsForArabica[i].contractHighDate,
-                    contractLowDate: terminalDetailsForArabica[i].contractLowDate
-                }
-                arabicaArray.push(object)
-                // ittirationForRobusta += 1
             }
             robustaArrays = robustaArray
             arabicaArrays = arabicaArray
@@ -731,7 +724,7 @@ function getTincapheData() {
 
 const postDataToCoffeeWeb = (robustaArray, arabicaArray) => {
     let data = robustaArray.concat(arabicaArray);
-    console.log(data)
+    // console.log(data)
     fetch('https://www.coffeeweb.org/api/TincapheAuth/InsertTincapheData', {
         method: 'POST',
         headers: {

@@ -813,3 +813,77 @@ let robustaDetails = [
 //     terminalId : "7ad5bad2-da36-4842-b706-287c3020642e",
 // }
 
+
+
+// else {
+//     const currentDate = new Date();
+//     const targetDateForOEForArabica = new Date(arabicaDetails[ittirationForArabica].optionExpiry);
+//     const targetDateFNRForArabica = new Date(arabicaDetails[ittirationForArabica].firstNoticeDay);
+//     const timeDifferenceForArabicaOE = targetDateForOEForArabica - currentDate;
+//     const timeDifferenceForArabicaFN = targetDateFNRForArabica - currentDate;
+//     const differenceInDaysForArabicaOE = Math.floor(timeDifferenceForArabicaOE / (1000 * 60 * 60 * 24));
+//     const differenceInDaysForArabicaFN = Math.floor(timeDifferenceForArabicaFN / (1000 * 60 * 60 * 24));
+//     let optionExpiryStatusForArabica = () => {
+//         if (differenceInDaysForArabicaOE <= 10 && differenceInDaysForArabicaOE >= -1) {
+//             return "boldAndRed"
+//         }
+
+//         else if (currentDate > targetDateForOEForArabica) {
+//             return "expired"
+//         }else{
+//             return ""
+//         }
+//     }
+//     let firstNoticeDayStatusForArabica = () => {
+//         if (differenceInDaysForArabicaFN <= 10 && differenceInDaysForArabicaFN >= -1) {
+//             return "boldAndRed"
+//         }
+//         else if ((currentDate > targetDateForOEForArabica) && (currentDate < targetDateFNRForArabica)) {
+//             return "boldAndBlack"
+//         }
+//         else if (differenceInDaysForArabicaOE <= 10 && differenceInDaysForArabicaOE >= -1) {
+//             return "boldAndBlack"
+//         } else if (currentDate > targetDateFNRForArabica) {
+//             return "expired"
+//         } else{
+//             return ""
+//         }
+//     }
+//     const object = {
+//         isHighlight: 0,
+//         id: ittirationForArabica,
+//         createdBy: 1,
+//         createdOn: new Date(),
+//         updatedBy: 1,
+//         updatedDtms: new Date(),
+//         idMarket: 2,
+//         contractName: arabicaDetails[ittirationForArabica].contractName.toString(),
+//         lastChng: actualValue(targetedObject.vs[1]) ? actualValue(targetedObject.vs[1]) : arabicaArrays[ittirationForArabica].lastChng,
+//         chng: actualValue(targetedObject.vs[2]) ? actualValue(targetedObject.vs[2]) : arabicaArrays[ittirationForArabica].chng,
+//         percentageVal: actualValue(targetedObject.vs[3]),
+//         volume: actualValue(targetedObject.vs[4]),
+//         highRate: actualValue(targetedObject.vs[6]),
+//         highRateCurrency: 0,
+//         lowRate: actualValue(targetedObject.vs[7]),
+//         lowRateCurrency: 0,
+//         openRate: actualValue(targetedObject.vs[8]),
+//         prevRate: actualValue(targetedObject.vs[9]),
+//         openInterest: actualValue(targetedObject.vs[10]),
+//         bid: actualValue(targetedObject.vs[11]),
+//         bsize: actualValue(targetedObject.vs[12]),
+//         ask: actualValue(targetedObject.vs[13]),
+//         asize: actualValue(targetedObject.vs[14]),
+//         optionExpiry: arabicaDetails[ittirationForArabica].optionExpiry.toString(),
+//         optionExpiryStatus: optionExpiryStatusForArabica(),
+//         firstNoticeDate: arabicaDetails[ittirationForArabica].firstNoticeDay.toString(),
+//         firstNoticeDateStatus: firstNoticeDayStatusForArabica(),
+//         highCurrency: 0,
+//         lowCurrency: 0,
+//         marketName: arabicaDetails[ittirationForArabica].contractName.toString(),
+//         userSymbolId: 0,
+//         orderBy: 0,
+//         terminalId: arabicaDetails[ittirationForArabica].terminalId
+//     }
+//     arabicaArray.push(object)
+//     ittirationForArabica += 1
+// }
