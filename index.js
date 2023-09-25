@@ -633,10 +633,10 @@ function getTincapheData() {
                     userSymbolId: 0,
                     orderBy: 0,
                     terminalId: terminalDetailsForRobusta[i].terminalId,
-                    contractHighRate: terminalDetailsForRobusta[i].contractHighRate,
-                    contractLowRate: terminalDetailsForRobusta[i].contractLowRate,
-                    contractHighDate: terminalDetailsForRobusta[i].contractHighDate,
-                    contractLowDate: terminalDetailsForRobusta[i].contractLowDate
+                    contractHighRate: terminalDetailsForRobusta[i]._52weeksHighRate,
+                    contractLowRate: terminalDetailsForRobusta[i]._52weeksLowRate,
+                    contractHighDate: terminalDetailsForRobusta[i]._52weeksHighDate,
+                    contractLowDate: terminalDetailsForRobusta[i]._52weeksLowDate
                 }
                 robustaArray.push(object)
                 // ittirationForRobusta += 1
@@ -710,10 +710,10 @@ function getTincapheData() {
                     userSymbolId: 0,
                     orderBy: 0,
                     terminalId: terminalDetailsForArabica[i].terminalId,
-                    contractHighRate: terminalDetailsForArabica[i].contractHighRate,
-                    contractLowRate: terminalDetailsForArabica[i].contractLowRate,
-                    contractHighDate: terminalDetailsForArabica[i].contractHighDate,
-                    contractLowDate: terminalDetailsForArabica[i].contractLowDate
+                    contractHighRate: terminalDetailsForArabica[i]._52weeksHighRate,
+                    contractLowRate: terminalDetailsForArabica[i]._52weeksLowRate,
+                    contractHighDate: terminalDetailsForArabica[i]._52weeksHighDate,
+                    contractLowDate: terminalDetailsForArabica[i]._52weeksLowDate
                 }
                 arabicaArray.push(object)
                 // ittirationForRobusta += 1
