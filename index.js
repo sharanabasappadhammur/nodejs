@@ -11,6 +11,15 @@ import cors from 'cors'
 app.use(cors())
 app.use(express.json())
 
+let router = express.Router()
+router.get('/',(req, res)=>{
+    res.send("qwq")
+})
+
+// node index.js
+
+app.use('/.netlify/functions/api',router)
+
 const cookieJar = new tough.CookieJar();
 
 let robustaDetails = [
