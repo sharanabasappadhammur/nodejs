@@ -522,7 +522,7 @@ let terminalDetailsForArabica = []
 
 const getTerminalDetails = () => {
     // console.log(terminalDetails)
-    fetch('https://www.coffeeweb.org/api/TerminalDetails/GetTerminalDetails', {
+    fetch('https://https://dev-api.devptest.com/api/TerminalDetails/GetTerminalDetails', {
         method: 'get',
         headers: {
             Authorization: `Bearer ${localAuthToken}`,
@@ -732,7 +732,7 @@ function getTincapheData() {
 const postDataToCoffeeWeb = (robustaArray, arabicaArray) => {
     let data = robustaArray.concat(arabicaArray);
     console.log(data)
-    fetch('https://www.coffeeweb.org/api/TincapheAuth/InsertTincapheData', {
+    fetch('https://https://dev-api.devptest.com/api/TincapheAuth/InsertTincapheData', {
         method: 'POST',
         headers: {
             Authorization: `Bearer ${localAuthToken}`,
@@ -792,7 +792,7 @@ const getXECurrencyData = () => {
 }
 
 const postXECurrencyData = (xeArray) => {
-    fetch('https://www.coffeeweb.org/api/CoffeeQuotesCurrency/PostcoffeequotesCurrency', {
+    fetch('https://https://dev-api.devptest.com/api/CoffeeQuotesCurrency/PostcoffeequotesCurrency', {
         method: 'POST',
         headers: {
             Authorization: `Bearer ${localAuthToken}`,
